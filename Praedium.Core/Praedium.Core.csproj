@@ -45,15 +45,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Key.cs" />
-    <Compile Include="KeyInfo.cs" />
-    <Compile Include="Component.cs" />
+    <Compile Include="Attributes\RequireComponent.cs" />
+    <Compile Include="Components\Component.cs" />
+    <Compile Include="Components\TestMoveComponent.cs" />
     <Compile Include="Game.cs" />
     <Compile Include="GameObject.cs" />
+    <Compile Include="Player.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Components\" />
+    <ProjectReference Include="..\Praedium.UI\Praedium.UI.csproj">
+      <Project>{5b9b82ec-1bdf-4923-a928-961f533394af}</Project>
+      <Name>Praedium.UI</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

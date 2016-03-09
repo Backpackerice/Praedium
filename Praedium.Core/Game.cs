@@ -5,18 +5,19 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Diagnostics;
 using Malison.Core;
+using Praedium.UI;
 
 namespace Praedium.Core
 {
     public class Game
     {
-        private List<GameObject> _entities;
+        private List<GameObject> entities;
 
-        private TimeSpan _accumulatedTime;
-        private TimeSpan _lastTime;
-        private Stopwatch _stopWatch;
+        private TimeSpan accumulatedTime;
+        private TimeSpan lastTime;
+        private Stopwatch stopWatch;
 
-        private bool _keyDataChanged;
+        private bool keyDataChanged;
 
         public KeyInfo CurrentKeyInfo
         {
@@ -27,13 +28,21 @@ namespace Praedium.Core
         public readonly TimeSpan TargetElapsedTime = TimeSpan.FromTicks(TimeSpan.TicksPerSecond / 60);
         public readonly TimeSpan MaxElapsedTime = TimeSpan.FromTicks(TimeSpan.TicksPerSecond / 10);
 
+        public event EventHandler<KeyInfoEventArgs> KeyUp;
+        public event EventHandler<KeyInfoEventArgs> KeyDown;
+
         public bool DebugKeys
         {
             get;
             set;
-        }        
+        }
 
-        Random random; //Just for the tests
+        // TODO: Might need to replace with better random number generator
+        public Random RNG
+        {
+            get;
+            private set;
+        }
 
         public ITerminal Terminal
         {
@@ -43,10 +52,10 @@ namespace Praedium.Core
 
         public Game(ITerminal terminal)
         {
-            _stopWatch = Stopwatch.StartNew();
+            stopWatch = Stopwatch.StartNew();
             Terminal = terminal;
-            random = new Random();
-            _entities = new List<GameObject>();
+            RNG = new Random();
+            entities = new List<GameObject>();
         }
 
         public double DeltaTime
@@ -59,28 +68,28 @@ namespace Praedium.Core
 
         public void Tick()
         {
-            TimeSpan currentTime = _stopWatch.Elapsed;
-            TimeSpan elapsedTime = currentTime - _lastTime;
-            _lastTime = currentTime;
+            TimeSpan currentTime = stopWatch.Elapsed;
+            TimeSpan elapsedTime = currentTime - lastTime;
+            lastTime = currentTime;
 
             if (elapsedTime > MaxElapsedTime)
             {
                 elapsedTime = MaxElapsedTime;
             }
 
-            _accumulatedTime += elapsedTime;
+            accumulatedTime += elapsedTime;
 
-            if(_keyDataChanged)
+            if(keyDataChanged)
                 HandleInput();
 
-            while (_accumulatedTime >= TargetElapsedTime)
+            while (accumulatedTime >= TargetElapsedTime)
             {
                 Update();
 
-                Render();
-
-                _accumulatedTime -= TargetElapsedTime;
+                accumulatedTime -= TargetElapsedTime;
             }
+
+            Render();
         }
 
         public void HandleInput()
@@ -88,7 +97,16 @@ namespace Praedium.Core
             if (CurrentKeyInfo.Key == Key.F1 && CurrentKeyInfo.Control && !CurrentKeyInfo.Down)
                 DebugKeys = !DebugKeys;
 
-            _keyDataChanged = false;
+            if(CurrentKeyInfo.Down)
+            {
+                OnKeyDown();
+            }
+            else
+            {
+                OnKeyUp();
+            }
+            
+            keyDataChanged = false;
         }
 
         public void ApplyKeyData(KeyInfo info)
@@ -96,18 +114,47 @@ namespace Praedium.Core
             if (!(info.Equals(CurrentKeyInfo)) || info.Down)
             {
                 CurrentKeyInfo = info;
-                _keyDataChanged = true;
+                keyDataChanged = true;
+            }
+        }
+
+        public void Setup()
+        {
+            AddGameObject(new Player());
+
+            foreach (var entity in entities)
+            {
+                entity.Start();
+            }
+        }
+
+        public void AddGameObject(GameObject gameObject)
+        {
+            entities.Add(gameObject);
+            gameObject.Game = this;
+        }
+
+        private void OnKeyDown()
+        {
+            if (KeyDown != null)
+            {
+                KeyDown(this, new KeyInfoEventArgs(CurrentKeyInfo));
+            }
+        }
+
+        private void OnKeyUp()
+        {
+            if (KeyUp != null)
+            {
+                KeyUp(this, new KeyInfoEventArgs(CurrentKeyInfo));
             }
         }
 
         private void Update()
         {
-            foreach(var entity in _entities)
+            foreach (var gameObject in entities)
             {
-                foreach(var component in entity.Components)
-                {
-                    component.Update();
-                }
+                gameObject.Update();
             }
         }
 
@@ -115,12 +162,12 @@ namespace Praedium.Core
         {
             Terminal.Clear();
 
-            foreach(var entity in _entities)
+            TestRender();
+
+            foreach(var entity in entities)
             {
                 entity.Render(Terminal);
             }
-
-            TestRender();
 
             if(DebugKeys)
                 RenderKeys();
@@ -201,7 +248,7 @@ namespace Praedium.Core
                 for (int j = (Terminal.Size.Y + 1) / 4; j < Terminal.Size.Y / 2 + Terminal.Size.Y / 4; j++)
                 {
                     //Random character with random foreground and background colors
-                    Terminal[i, j][colors[random.Next(0, colors.Length)], colors[random.Next(0, colors.Length)]].Write(glyphs[random.Next(0, glyphs.Length)]);
+                    Terminal[i, j][colors[RNG.Next(0, colors.Length)], colors[RNG.Next(0, colors.Length)]].Write(glyphs[RNG.Next(0, glyphs.Length)]);
                 }
             }
         }

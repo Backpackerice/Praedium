@@ -12,6 +12,7 @@ using Malison.WinForms;
 using System.Runtime.InteropServices;
 using System.Diagnostics;
 using Praedium.Core;
+using Praedium.UI;
 
 namespace Praedium.App
 {
@@ -30,6 +31,8 @@ namespace Praedium.App
         {
             InitializeComponent();
             _game = new Game(Terminal);
+
+            _game.Setup();
 
             Application.Idle += Application_Idle;
             TerminalControl.KeyDown += TerminalControl_KeyDown;

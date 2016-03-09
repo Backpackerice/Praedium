@@ -39,6 +39,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Key.cs" />
+    <Compile Include="KeyInfoEventArgs.cs" />
+    <Compile Include="KeyInfo.cs" />
     <Compile Include="UserInterface.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

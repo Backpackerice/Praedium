@@ -92,6 +92,10 @@
       <Project>{a26b8800-2058-4f77-a012-9f5d92e0cfb3}</Project>
       <Name>Praedium.Core</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Praedium.UI\Praedium.UI.csproj">
+      <Project>{5b9b82ec-1bdf-4923-a928-961f533394af}</Project>
+      <Name>Praedium.UI</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
