@@ -5,6 +5,10 @@ VisualStudioVersion = 12.0.21005.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Praedium.App", "Praedium.App\Praedium.App.csproj", "{2755BD9A-7B04-4AE1-B650-06A071E0A701}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Praedium.Core", "Praedium.Core\Praedium.Core.csproj", "{A26B8800-2058-4F77-A012-9F5D92E0CFB3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Praedium.UI", "Praedium.UI\Praedium.UI.csproj", "{5B9B82EC-1BDF-4923-A928-961F533394AF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,14 @@ Global
 		{2755BD9A-7B04-4AE1-B650-06A071E0A701}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2755BD9A-7B04-4AE1-B650-06A071E0A701}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2755BD9A-7B04-4AE1-B650-06A071E0A701}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A26B8800-2058-4F77-A012-9F5D92E0CFB3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A26B8800-2058-4F77-A012-9F5D92E0CFB3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A26B8800-2058-4F77-A012-9F5D92E0CFB3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A26B8800-2058-4F77-A012-9F5D92E0CFB3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5B9B82EC-1BDF-4923-A928-961F533394AF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5B9B82EC-1BDF-4923-A928-961F533394AF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5B9B82EC-1BDF-4923-A928-961F533394AF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5B9B82EC-1BDF-4923-A928-961F533394AF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
