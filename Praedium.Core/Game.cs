@@ -17,7 +17,11 @@ namespace Praedium.Core
         private TimeSpan lastTime;
         private Stopwatch stopWatch;
 
-        private bool keyDataChanged;
+        public UserInterface UI
+        {
+            get;
+            private set;
+        }
 
         public KeyInfo CurrentKeyInfo
         {
@@ -55,6 +59,7 @@ namespace Praedium.Core
             stopWatch = Stopwatch.StartNew();
             Terminal = terminal;
             RNG = new Random();
+            UI = new UserInterface();
             entities = new List<GameObject>();
         }
 
@@ -79,9 +84,6 @@ namespace Praedium.Core
 
             accumulatedTime += elapsedTime;
 
-            if(keyDataChanged)
-                HandleInput();
-
             while (accumulatedTime >= TargetElapsedTime)
             {
                 Update();
@@ -92,30 +94,9 @@ namespace Praedium.Core
             Render();
         }
 
-        public void HandleInput()
+        public void HandleInput(KeyInfo info)
         {
-            if (CurrentKeyInfo.Key == Key.F1 && CurrentKeyInfo.Control && !CurrentKeyInfo.Down)
-                DebugKeys = !DebugKeys;
-
-            if(CurrentKeyInfo.Down)
-            {
-                OnKeyDown();
-            }
-            else
-            {
-                OnKeyUp();
-            }
-            
-            keyDataChanged = false;
-        }
-
-        public void ApplyKeyData(KeyInfo info)
-        {
-            if (!(info.Equals(CurrentKeyInfo)) || info.Down)
-            {
-                CurrentKeyInfo = info;
-                keyDataChanged = true;
-            }
+            UI.ApplyKeyInfo(info);
         }
 
         public void Setup()
@@ -168,35 +149,6 @@ namespace Praedium.Core
             {
                 entity.Render(Terminal);
             }
-
-            if(DebugKeys)
-                RenderKeys();
-        }
-
-        private void RenderKeys()
-        {
-            if (CurrentKeyInfo.Down)
-            {
-                Terminal[0, 0].Write(CurrentKeyInfo.Key.ToString());
-
-                List<string> line = new List<string>();
-
-                if (CurrentKeyInfo.Control)
-                {
-                    line.Add("CTRL");
-                }
-                if (CurrentKeyInfo.Shift)
-                {
-                    line.Add("SHIFT");
-                }
-                if (CurrentKeyInfo.Alt)
-                {
-                    line.Add("ALT");
-                }
-
-                Terminal[0, 1].Write(string.Join("+", line.ToArray()));
-            }
-            Terminal[0, Terminal.Size.Y - 1][TermColor.Red].Write("KEYS DEBUG ON");
         }
 
         private void TestRender()
@@ -239,9 +191,6 @@ namespace Praedium.Core
             };
 
             TermColor[] colors = (TermColor[])Enum.GetValues(typeof(TermColor));
-
-            Terminal[Terminal.Size.X / 4, 3, Terminal.Size.X - Terminal.Size.X/2, 3][TermColor.LightGreen].DrawBox(DrawBoxOptions.ContinueLines | DrawBoxOptions.DoubleLines);
-            Terminal[Terminal.Size.X / 4 + 1, 4].Write("Press CTRL+F1 to turn on keys debugger");
 
             for (int i = Terminal.Size.X / 4; i < Terminal.Size.X / 2 + Terminal.Size.X / 4; i++)
             {
