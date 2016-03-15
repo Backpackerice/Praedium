@@ -25,9 +25,14 @@ namespace Praedium.Core
         {
             Attribute[] attrs = Attribute.GetCustomAttributes(this.GetType());
 
-            foreach (RequireComponent item in attrs)
+            foreach (Attribute item in attrs)
             {
-                foreach (Type componentType in item.ComponentTypes)
+                RequireComponent componentAttribute = item as RequireComponent;
+
+                if (componentAttribute == null)
+                    continue;
+
+                foreach (Type componentType in componentAttribute.ComponentTypes)
                 {
                     // Add new component only when it's needed
                     if (GetComponentOfType(componentType) == null)
@@ -38,7 +43,6 @@ namespace Praedium.Core
                     }
                 }
             }
-
         }
 
         /// <summary>
@@ -75,10 +79,11 @@ namespace Praedium.Core
             set;
         }
 
-        public List<Component> Components
+        protected List<Component> Components;
+
+        public void AddComponent(Component component)
         {
-            get;
-            private set;
+            Components.Add(component);
         }
 
         public Component GetComponentOfType(Type type)
