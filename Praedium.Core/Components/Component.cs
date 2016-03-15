@@ -24,11 +24,11 @@ namespace Praedium.Core.Components
                 foreach (Type componentType in item.ComponentTypes)
                 {
                     // Add new component only when it's needed
-                    if (GameObject.Components.Find(x => x.GetType() == componentType) != null)
+                    if (GameObject.GetComponentOfType(componentType) != null)
                     {
                         Component instance = Activator.CreateInstance(componentType) as Component;
                         instance.AttachTo(GameObject);
-                        GameObject.Components.Add(instance);
+                        GameObject.AddComponent(instance);
                     }
                 }
             }
