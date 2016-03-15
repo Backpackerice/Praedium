@@ -38,7 +38,6 @@ namespace Praedium.Core
                     }
                 }
             }
-
         }
 
         /// <summary>
@@ -75,11 +74,7 @@ namespace Praedium.Core
             set;
         }
 
-        public List<Component> Components
-        {
-            get;
-            private set;
-        }
+        private List<Component> Components;
 
         public Component GetComponentOfType(Type type)
         {
