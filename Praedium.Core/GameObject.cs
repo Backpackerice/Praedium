@@ -79,7 +79,7 @@ namespace Praedium.Core
             set;
         }
 
-        private List<Component> Components;
+        protected List<Component> Components;
 
         public void AddComponent(Component component)
         {
