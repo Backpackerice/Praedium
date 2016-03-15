@@ -9,9 +9,6 @@ namespace Praedium.UI
     public struct KeyInfo
     {
         public Key Key;
-        public bool Shift;
-        public bool Control;
-        public bool Alt;
         public bool Down;
     }
 }
