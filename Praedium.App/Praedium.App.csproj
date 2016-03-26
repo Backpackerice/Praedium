@@ -1,3 +1,4 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -73,6 +74,10 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -81,6 +86,11 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="WindowsKeyParser.cs" />
   </ItemGroup>
@@ -96,6 +106,27 @@
       <Project>{5b9b82ec-1bdf-4923-a928-961f533394af}</Project>
       <Name>Praedium.UI</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\cp437_8x8.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\cp437_10x10.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\cp437_12x12.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\cp437_14x14.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\cp437_16x16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\cp437_18x18.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\cp437_20x20.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -10,20 +10,17 @@ using Praedium.Core.Components;
 
 namespace Praedium.Core
 {
-    [RequireComponent(typeof(TestMoveComponent))]
+    [RequireComponent(typeof(PlayerMovementHandler))]
     public class Player : GameObject
     {
-        public TermColor ForeColor;
-
         public override void Render(Malison.Core.ITerminal terminal)
         {
-            terminal[Position][ForeColor, TermColor.Black].Write(Glyph.At);
+            terminal[Position][TermColor.White, TermColor.Black].Write('☻');
         }
 
         protected override void OnStart()
         {
             Position = Vector2D.Zero;
-            ForeColor = TermColor.White;
         }
     }
 }

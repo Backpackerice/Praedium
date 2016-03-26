@@ -28,6 +28,9 @@ namespace Praedium.App
         public AppForm()
         {
             InitializeComponent();
+            Terminal = new Terminal(70, 40, Encoding.GetEncoding(437));
+            TerminalControl.GlyphSheet = new GlyphSheet(Resources.cp437_16x16, 16, 16);
+
             _game = new Game(Terminal);
 
             _game.Setup();

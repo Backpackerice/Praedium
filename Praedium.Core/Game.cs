@@ -153,44 +153,9 @@ namespace Praedium.Core
 
         private void TestRender()
         {
-            Glyph[] glyphs = new Glyph[] //Let's get some fancy symbols, all of them is a bit too big of a collection
-            {
-                Glyph.ArrowDown,
-                Glyph.ArrowLeft,
-                Glyph.ArrowRight,
-                Glyph.ArrowUp,
-                Glyph.Box,
-                Glyph.Bullet,
-                Glyph.Dark,
-                Glyph.DarkFill,
-                Glyph.Dashes,
-                Glyph.Door,
-                Glyph.Face,
-                Glyph.Grass,
-                Glyph.Gray,
-                Glyph.GrayFill,
-                Glyph.Hill,
-                Glyph.HorizontalBars,
-                Glyph.HorizontalBarsFill,
-                Glyph.Light,
-                Glyph.LightFill,
-                Glyph.Mountains,
-                Glyph.Solid,
-                Glyph.SolidFill,
-                Glyph.Tombstone,
-                Glyph.TreeConical,
-                Glyph.TreeDots,
-                Glyph.TreeRound,
-                Glyph.TriangleDown,
-                Glyph.TriangleLeft,
-                Glyph.TriangleRight,
-                Glyph.TriangleUp,
-                Glyph.TwoDots,
-                Glyph.VerticalBars,
-                Glyph.VerticalBarsFill
-            };
+            int[] glyphs = Enumerable.Range(0, 40).ToArray();
 
-            TermColor[] colors = (TermColor[])Enum.GetValues(typeof(TermColor));
+            TermColor[] colors = TermColor.Analogous(TermColor.Blue.Lighter(0.2), 16).ToArray();
 
             for (int i = Terminal.Size.X / 4; i < Terminal.Size.X / 2 + Terminal.Size.X / 4; i++)
             {
