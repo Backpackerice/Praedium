@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Praedium.Core.Attributes
+namespace Praedium.Engine.Attributes
 {
     /// <summary>
     /// Used to require all required components for the game object component.

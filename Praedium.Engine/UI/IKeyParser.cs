@@ -1,6 +1,6 @@
 using System;
 
-namespace Praedium.UI
+namespace Praedium.Engine.UI
 {
     public interface IKeyParser
     {

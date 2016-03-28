@@ -5,10 +5,10 @@ using System.Text;
 using System.Threading.Tasks;
 using Bramble.Core;
 using Malison.Core;
-using Praedium.Core.Components;
-using Praedium.Core.Attributes;
+using Praedium.Engine.Components;
+using Praedium.Engine.Attributes;
 
-namespace Praedium.Core
+namespace Praedium.Engine
 {
     public abstract class GameObject
     {

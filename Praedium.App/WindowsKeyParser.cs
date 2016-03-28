@@ -1,6 +1,6 @@
 using System;
 using System.Windows.Forms;
-using Praedium.UI;
+using Praedium.Engine.UI;
 
 namespace Praedium.App
 {

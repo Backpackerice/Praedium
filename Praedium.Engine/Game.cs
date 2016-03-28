@@ -5,9 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Diagnostics;
 using Malison.Core;
-using Praedium.UI;
+using Praedium.Engine.UI;
 
-namespace Praedium.Core
+namespace Praedium.Engine
 {
     public class Game
     {
@@ -101,8 +101,6 @@ namespace Praedium.Core
 
         public void Setup()
         {
-            AddGameObject(new Player());
-
             foreach (var entity in entities)
             {
                 entity.Start();
@@ -143,27 +141,9 @@ namespace Praedium.Core
         {
             Terminal.Clear();
 
-            TestRender();
-
             foreach(var entity in entities)
             {
                 entity.Render(Terminal);
-            }
-        }
-
-        private void TestRender()
-        {
-            int[] glyphs = Enumerable.Range(0, 40).ToArray();
-
-            TermColor[] colors = TermColor.Analogous(TermColor.Blue.Lighter(0.2), 16).ToArray();
-
-            for (int i = Terminal.Size.X / 4; i < Terminal.Size.X / 2 + Terminal.Size.X / 4; i++)
-            {
-                for (int j = (Terminal.Size.Y + 1) / 4; j < Terminal.Size.Y / 2 + Terminal.Size.Y / 4; j++)
-                {
-                    //Random character with random foreground and background colors
-                    Terminal[i, j][colors[RNG.Next(0, colors.Length)], colors[RNG.Next(0, colors.Length)]].Write(glyphs[RNG.Next(0, glyphs.Length)]);
-                }
             }
         }
     }

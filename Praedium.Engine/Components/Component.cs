@@ -1,11 +1,11 @@
-﻿using Praedium.Core.Attributes;
+﻿using Praedium.Engine.Attributes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Praedium.Core.Components
+namespace Praedium.Engine.Components
 {
     public abstract class Component
     {

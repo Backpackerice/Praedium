@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Praedium.UI
+namespace Praedium.Engine.UI
 {
     public struct KeyInfo
     {

@@ -5,7 +5,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Praedium.UI;
+using Praedium.Engine.UI;
+using Praedium.Engine.Components;
 
 namespace Praedium.Core.Components
 {

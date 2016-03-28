@@ -5,17 +5,19 @@ using System.Text;
 using System.Threading.Tasks;
 using Bramble.Core;
 using Malison.Core;
-using Praedium.Core.Attributes;
+using Praedium.Engine.Attributes;
+using Praedium.Engine.Components;
 using Praedium.Core.Components;
+using Praedium.Engine;
 
-namespace Praedium.Core
+namespace Praedium.Core.GameObjects
 {
     [RequireComponent(typeof(PlayerMovementHandler))]
     public class Player : GameObject
     {
         public override void Render(Malison.Core.ITerminal terminal)
         {
-            terminal[Position][TermColor.White, TermColor.Black].Write('☻');
+            terminal[Position][TermColor.White, TermColor.Black].Write((int)    Glyph.CharacterInversed);
         }
 
         protected override void OnStart()
