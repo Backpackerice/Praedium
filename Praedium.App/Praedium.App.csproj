@@ -65,6 +65,9 @@
     <Compile Include="NativeMessage.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="AppForm.resx">
+      <DependentUpon>AppForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -102,9 +105,9 @@
       <Project>{a26b8800-2058-4f77-a012-9f5d92e0cfb3}</Project>
       <Name>Praedium.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Praedium.UI\Praedium.UI.csproj">
-      <Project>{5b9b82ec-1bdf-4923-a928-961f533394af}</Project>
-      <Name>Praedium.UI</Name>
+    <ProjectReference Include="..\Praedium.Engine\Praedium.Engine.csproj">
+      <Project>{6703387b-9db2-4d0e-84b1-dd0e6420358d}</Project>
+      <Name>Praedium.Engine</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
