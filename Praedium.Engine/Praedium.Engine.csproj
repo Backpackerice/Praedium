@@ -45,11 +45,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Attributes\RequireComponent.cs" />
+    <Compile Include="Components\RequireComponent.cs" />
     <Compile Include="Components\Component.cs" />
     <Compile Include="Game.cs" />
     <Compile Include="GameObject.cs" />
+    <Compile Include="Level.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Tile.cs" />
+    <Compile Include="TileLayer.cs" />
     <Compile Include="UI\IKeyParser.cs" />
     <Compile Include="UI\Key.cs" />
     <Compile Include="UI\KeyInfo.cs" />

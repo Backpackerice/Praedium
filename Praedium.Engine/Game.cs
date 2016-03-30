@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Diagnostics;
 using Malison.Core;
 using Praedium.Engine.UI;
+using Bramble.Core;
 
 namespace Praedium.Engine
 {
@@ -16,6 +17,7 @@ namespace Praedium.Engine
         private TimeSpan accumulatedTime;
         private TimeSpan lastTime;
         private Stopwatch stopWatch;
+        private ITerminal terminal;
 
         public UserInterface UI
         {
@@ -33,13 +35,7 @@ namespace Praedium.Engine
         public readonly TimeSpan MaxElapsedTime = TimeSpan.FromTicks(TimeSpan.TicksPerSecond / 10);
 
         public event EventHandler<KeyInfoEventArgs> KeyUp;
-        public event EventHandler<KeyInfoEventArgs> KeyDown;
-
-        public bool DebugKeys
-        {
-            get;
-            set;
-        }
+        public event EventHandler<KeyInfoEventArgs> KeyDown;        
 
         // TODO: Might need to replace with better random number generator
         public Random RNG
@@ -49,6 +45,34 @@ namespace Praedium.Engine
         }
 
         public ITerminal Terminal
+        {
+            get
+            {
+                return terminal;
+            }
+            set
+            {
+                if(terminal != null)
+                    Viewport = new Rect(ViewPortOffset + (terminal.Size / 2 - value.Size / 2), value.Size);
+                terminal = value;
+            }
+        }
+
+        public Vector2D ViewPortOffset
+        {
+            get
+            {
+                return Viewport.Position;
+            }
+        }
+
+        public Rect Viewport
+        {
+            get;
+            private set;
+        }
+
+        public Level Level
         {
             get;
             private set;
@@ -61,6 +85,41 @@ namespace Praedium.Engine
             RNG = new Random();
             UI = new UserInterface();
             entities = new List<GameObject>();
+        }
+
+        public void LoadLevel(Level targetLevel)
+        {
+            if(Level != null)
+                Level.Unload();
+            entities.Clear();
+
+            targetLevel.Game = this;
+            targetLevel.Load();
+
+            Level = targetLevel;
+
+            Setup();
+        }
+
+        public void CenterViewTo(Vector2D position)
+        {
+            Viewport = new Rect(new Vector2D(position.X - Terminal.Size.X / 2, position.Y - Terminal.Size.Y / 2), Terminal.Size);
+        }
+
+        public void MoveViewBy(Vector2D distance)
+        {
+            Viewport = new Rect(Viewport.Position + distance, Terminal.Size);
+        }
+
+        public bool TileCollideable(Vector2D position)
+        {
+            foreach (var layer in Level.Layers.Values)
+            {
+                if (layer.Tiles[position.Y * 100 + position.X].Collideable)
+                    return true;
+            }
+
+            return false;
         }
 
         public double DeltaTime
@@ -140,6 +199,8 @@ namespace Praedium.Engine
         private void Render()
         {
             Terminal.Clear();
+
+            Level.Render(Terminal);
 
             foreach(var entity in entities)
             {

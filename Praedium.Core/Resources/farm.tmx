@@ -1,0 +1,737 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="left-up" width="100" height="100" tilewidth="16" tileheight="16" nextobjectid="4">
+ <tileset firstgid="1" name="Praedium" tilewidth="16" tileheight="16" tilecount="90" columns="6">
+  <image source="../../Downloads/REXPaint-v1.01/REXPaint-v1.01/images/tiles.png" width="96" height="240"/>
+  <tile id="0">
+   <properties>
+    <property name="Background" value="#d90000"/>
+    <property name="Code" type="int" value="220"/>
+    <property name="Collideable" type="bool" value="true"/>
+    <property name="Foreground" value="#b20000"/>
+   </properties>
+  </tile>
+  <tile id="1">
+   <properties>
+    <property name="Background" value="#b20000"/>
+    <property name="Code" type="int" value="220"/>
+    <property name="Collideable" type="bool" value="true"/>
+    <property name="Foreground" value="#d90000"/>
+   </properties>
+  </tile>
+  <tile id="2">
+   <properties>
+    <property name="Background" value="#d90000"/>
+    <property name="Code" type="int" value="220"/>
+    <property name="Collideable" type="bool" value="true"/>
+    <property name="Foreground" value="#b20000"/>
+   </properties>
+  </tile>
+  <tile id="3">
+   <properties>
+    <property name="Background" value="#b2ff66"/>
+    <property name="Code" type="int" value="218"/>
+    <property name="Collideable" type="bool" value="true"/>
+    <property name="Foreground" value="#9e8664"/>
+   </properties>
+  </tile>
+  <tile id="4">
+   <properties>
+    <property name="Background" value="#b2ff66"/>
+    <property name="Code" type="int" value="194"/>
+    <property name="Collideable" type="bool" value="true"/>
+    <property name="Foreground" value="#9e8664"/>
+   </properties>
+  </tile>
+  <tile id="5">
+   <properties>
+    <property name="Background" value="#b2ff66"/>
+    <property name="Code" type="int" value="191"/>
+    <property name="Collideable" type="bool" value="true"/>
+    <property name="Foreground" value="#9e8664"/>
+   </properties>
+  </tile>
+  <tile id="6">
+   <properties>
+    <property name="Background" value="#d90000"/>
+    <property name="Code" type="int" value="219"/>
+    <property name="Collideable" type="bool" value="true"/>
+    <property name="Foreground" value="#d90000"/>
+   </properties>
+  </tile>
+  <tile id="7">
+   <properties>
+    <property name="Background" value="#d90000"/>
+    <property name="Code" type="int" value="178"/>
+    <property name="Collideable" type="bool" value="true"/>
+    <property name="Foreground" value="#ff3333"/>
+   </properties>
+  </tile>
+  <tile id="8">
+   <properties>
+    <property name="Background" value="#d90000"/>
+    <property name="Code" type="int" value="219"/>
+    <property name="Collideable" type="bool" value="true"/>
+    <property name="Foreground" value="#d90000"/>
+   </properties>
+  </tile>
+  <tile id="9">
+   <properties>
+    <property name="Background" value="#b2ff66"/>
+    <property name="Code" type="int" value="195"/>
+    <property name="Collideable" type="bool" value="true"/>
+    <property name="Foreground" value="#9e8664"/>
+   </properties>
+  </tile>
+  <tile id="10">
+   <properties>
+    <property name="Background" value="#b2ff66"/>
+    <property name="Code" type="int" value="180"/>
+    <property name="Collideable" type="bool" value="true"/>
+    <property name="Foreground" value="#9e8664"/>
+   </properties>
+  </tile>
+  <tile id="11">
+   <properties>
+    <property name="Background" value="#b2ff66"/>
+    <property name="Code" type="int" value="196"/>
+    <property name="Collideable" type="bool" value="true"/>
+    <property name="Foreground" value="#9e8664"/>
+   </properties>
+  </tile>
+  <tile id="12">
+   <properties>
+    <property name="Background" value="#d90000"/>
+    <property name="Code" type="int" value="178"/>
+    <property name="Collideable" type="bool" value="true"/>
+    <property name="Foreground" value="#ff3333"/>
+   </properties>
+  </tile>
+  <tile id="13">
+   <properties>
+    <property name="Background" value="#d90000"/>
+    <property name="Code" type="int" value="219"/>
+    <property name="Collideable" type="bool" value="true"/>
+    <property name="Foreground" value="#d90000"/>
+   </properties>
+  </tile>
+  <tile id="14">
+   <properties>
+    <property name="Background" value="#d90000"/>
+    <property name="Code" type="int" value="178"/>
+    <property name="Collideable" type="bool" value="true"/>
+    <property name="Foreground" value="#ff3333"/>
+   </properties>
+  </tile>
+  <tile id="15">
+   <properties>
+    <property name="Background" value="#b2ff66"/>
+    <property name="Code" type="int" value="179"/>
+    <property name="Collideable" type="bool" value="true"/>
+    <property name="Foreground" value="#9e8664"/>
+   </properties>
+  </tile>
+  <tile id="16">
+   <properties>
+    <property name="Background" value="#008c00"/>
+    <property name="Code" type="int" value="249"/>
+    <property name="Collideable" type="bool" value="true"/>
+    <property name="Foreground" value="#d90000"/>
+   </properties>
+  </tile>
+  <tile id="17">
+   <properties>
+    <property name="Background" value=""/>
+    <property name="Code" type="int" value="0"/>
+    <property name="Collideable" type="bool" value="true"/>
+    <property name="Foreground" value=""/>
+   </properties>
+  </tile>
+  <tile id="18">
+   <properties>
+    <property name="Background" value="#ffffff"/>
+    <property name="Code" type="int" value="220"/>
+    <property name="Collideable" type="bool" value="true"/>
+    <property name="Foreground" value="#000000"/>
+   </properties>
+  </tile>
+  <tile id="19">
+   <properties>
+    <property name="Background" value="#ffffff"/>
+    <property name="Code" type="int" value="219"/>
+    <property name="Collideable" type="bool" value="true"/>
+    <property name="Foreground" value="#ffffff"/>
+   </properties>
+  </tile>
+  <tile id="20">
+   <properties>
+    <property name="Background" value="#ffffff"/>
+    <property name="Code" type="int" value="220"/>
+    <property name="Collideable" type="bool" value="true"/>
+    <property name="Foreground" value="#66b2ff"/>
+   </properties>
+  </tile>
+  <tile id="21">
+   <properties>
+    <property name="Background" value="#008c00"/>
+    <property name="Code" type="int" value="7"/>
+    <property name="Collideable" type="bool" value="true"/>
+    <property name="Foreground" value="#d90000"/>
+   </properties>
+  </tile>
+  <tile id="22">
+   <properties>
+    <property name="Background" value="#b2ff66"/>
+    <property name="Code" type="int" value="7"/>
+    <property name="Collideable" type="bool" value="false"/>
+    <property name="Foreground" value="#d90000"/>
+   </properties>
+  </tile>
+  <tile id="23">
+   <properties>
+    <property name="Background" value="#b2ff66"/>
+    <property name="Code" type="int" value="58"/>
+    <property name="Collideable" type="bool" value="false"/>
+    <property name="Foreground" value=""/>
+   </properties>
+  </tile>
+  <tile id="24">
+   <properties>
+    <property name="Background" value="#000000"/>
+    <property name="Code" type="int" value="219"/>
+    <property name="Collideable" type="bool" value="true"/>
+    <property name="Foreground" value="#000000"/>
+   </properties>
+  </tile>
+  <tile id="25">
+   <properties>
+    <property name="Background" value="#ffffff"/>
+    <property name="Code" type="int" value="219"/>
+    <property name="Collideable" type="bool" value="true"/>
+    <property name="Foreground" value="#ffffff"/>
+   </properties>
+  </tile>
+  <tile id="26">
+   <properties>
+    <property name="Background" value="#66b2ff"/>
+    <property name="Code" type="int" value="220"/>
+    <property name="Collideable" type="bool" value="true"/>
+    <property name="Foreground" value="#ffffff"/>
+   </properties>
+  </tile>
+  <tile id="27">
+   <properties>
+    <property name="Background" value="#b2ff66"/>
+    <property name="Code" type="int" value="181"/>
+    <property name="Collideable" type="bool" value="true"/>
+    <property name="Foreground" value="#9e8664"/>
+   </properties>
+  </tile>
+  <tile id="28">
+   <properties>
+    <property name="Background" value="#b2ff66"/>
+    <property name="Code" type="int" value="195"/>
+    <property name="Collideable" type="bool" value="true"/>
+    <property name="Foreground" value="#9e8664"/>
+   </properties>
+  </tile>
+  <tile id="29">
+   <properties>
+    <property name="Background" value="#b2ff66"/>
+    <property name="Code" type="int" value="46"/>
+    <property name="Collideable" type="bool" value="false"/>
+    <property name="Foreground" value=""/>
+   </properties>
+  </tile>
+  <tile id="30">
+   <properties>
+    <property name="Background" value="#b2ff66"/>
+    <property name="Code" type="int" value="219"/>
+    <property name="Collideable" type="bool" value="false"/>
+    <property name="Foreground" value="#b2ff66"/>
+   </properties>
+  </tile>
+  <tile id="31">
+   <properties>
+    <property name="Background" value="#6cd900"/>
+    <property name="Code" type="int" value="219"/>
+    <property name="Collideable" type="bool" value="false"/>
+    <property name="Foreground" value="#6cd900"/>
+   </properties>
+  </tile>
+  <tile id="32">
+   <properties>
+    <property name="Background" value="#008c00"/>
+    <property name="Code" type="int" value="219"/>
+    <property name="Collideable" type="bool" value="true"/>
+    <property name="Foreground" value="#008c00"/>
+   </properties>
+  </tile>
+  <tile id="33">
+   <properties>
+    <property name="Background" value="#b2ff66"/>
+    <property name="Code" type="int" value="197"/>
+    <property name="Collideable" type="bool" value="true"/>
+    <property name="Foreground" value="#9e8664"/>
+   </properties>
+  </tile>
+  <tile id="34">
+   <properties>
+    <property name="Background" value="#b2ff66"/>
+    <property name="Code" type="int" value="217"/>
+    <property name="Collideable" type="bool" value="true"/>
+    <property name="Foreground" value="#9e8664"/>
+   </properties>
+  </tile>
+  <tile id="35">
+   <properties>
+    <property name="Background" value="#b2ff66"/>
+    <property name="Code" type="int" value="35"/>
+    <property name="Collideable" type="bool" value="true"/>
+    <property name="Foreground" value="#008c00"/>
+   </properties>
+  </tile>
+  <tile id="36">
+   <properties>
+    <property name="Background" value="#6cd900"/>
+    <property name="Code" type="int" value="220"/>
+    <property name="Collideable" type="bool" value="true"/>
+    <property name="Foreground" value="#3399ff"/>
+   </properties>
+  </tile>
+  <tile id="37">
+   <properties>
+    <property name="Background" value="#66b2ff"/>
+    <property name="Code" type="int" value="219"/>
+    <property name="Collideable" type="bool" value="true"/>
+    <property name="Foreground" value="#66b2ff"/>
+   </properties>
+  </tile>
+  <tile id="38">
+   <properties>
+    <property name="Background" value="#0080ff"/>
+    <property name="Code" type="int" value="219"/>
+    <property name="Collideable" type="bool" value="true"/>
+    <property name="Foreground" value="#0080ff"/>
+   </properties>
+  </tile>
+  <tile id="39">
+   <properties>
+    <property name="Background" value="#b2ff66"/>
+    <property name="Code" type="int" value="179"/>
+    <property name="Collideable" type="bool" value="true"/>
+    <property name="Foreground" value="#9e8664"/>
+   </properties>
+  </tile>
+  <tile id="40">
+   <properties>
+    <property name="Background" value="#b2ff66"/>
+    <property name="Code" type="int" value="211"/>
+    <property name="Collideable" type="bool" value="true"/>
+    <property name="Foreground" value="#9e8664"/>
+   </properties>
+  </tile>
+  <tile id="41">
+   <properties>
+    <property name="Background" value="#b2ff66"/>
+    <property name="Code" type="int" value="231"/>
+    <property name="Collideable" type="bool" value="false"/>
+    <property name="Foreground" value="#008c00"/>
+   </properties>
+  </tile>
+  <tile id="42">
+   <properties>
+    <property name="Background" value="#b2ff66"/>
+    <property name="Code" type="int" value="15"/>
+    <property name="Collideable" type="bool" value="false"/>
+    <property name="Foreground" value="#0080ff"/>
+   </properties>
+  </tile>
+  <tile id="43">
+   <properties>
+    <property name="Background" value="#b2ff66"/>
+    <property name="Code" type="int" value="4"/>
+    <property name="Collideable" type="bool" value="true"/>
+    <property name="Foreground" value="#4d4d4d"/>
+   </properties>
+  </tile>
+  <tile id="44">
+   <properties>
+    <property name="Background" value="#b2ff66"/>
+    <property name="Code" type="int" value="7"/>
+    <property name="Collideable" type="bool" value="true"/>
+    <property name="Foreground" value="#4d4d4d"/>
+   </properties>
+  </tile>
+  <tile id="45">
+   <properties>
+    <property name="Background" value="#b2ff66"/>
+    <property name="Code" type="int" value="249"/>
+    <property name="Collideable" type="bool" value="true"/>
+    <property name="Foreground" value="#4d4d4d"/>
+   </properties>
+  </tile>
+  <tile id="46">
+   <properties>
+    <property name="Background" value="#b2ff66"/>
+    <property name="Code" type="int" value="250"/>
+    <property name="Collideable" type="bool" value="false"/>
+    <property name="Foreground" value="#4d4d4d"/>
+   </properties>
+  </tile>
+  <tile id="47">
+   <properties>
+    <property name="Background" value="#b2ff66"/>
+    <property name="Code" type="int" value="219"/>
+    <property name="Collideable" type="bool" value="false"/>
+    <property name="Foreground" value="#b2ff66"/>
+   </properties>
+  </tile>
+  <tile id="48">
+   <properties>
+    <property name="Background" value="#b2ff66"/>
+    <property name="Code" type="int" value="15"/>
+    <property name="Collideable" type="bool" value="false"/>
+    <property name="Foreground" value=""/>
+   </properties>
+  </tile>
+  <tile id="49">
+   <properties>
+    <property name="Background" value="#b2ff66"/>
+    <property name="Code" type="int" value="4"/>
+    <property name="Collideable" type="bool" value="true"/>
+    <property name="Foreground" value="#9e9e9e"/>
+   </properties>
+  </tile>
+  <tile id="50">
+   <properties>
+    <property name="Background" value="#b2ff66"/>
+    <property name="Code" type="int" value="7"/>
+    <property name="Collideable" type="bool" value="true"/>
+    <property name="Foreground" value="#9e9e9e"/>
+   </properties>
+  </tile>
+  <tile id="51">
+   <properties>
+    <property name="Background" value="#b2ff66"/>
+    <property name="Code" type="int" value="249"/>
+    <property name="Collideable" type="bool" value="true"/>
+    <property name="Foreground" value="#9e9e9e"/>
+   </properties>
+  </tile>
+  <tile id="52">
+   <properties>
+    <property name="Background" value="#b2ff66"/>
+    <property name="Code" type="int" value="250"/>
+    <property name="Collideable" type="bool" value="false"/>
+    <property name="Foreground" value="#9e9e9e"/>
+   </properties>
+  </tile>
+  <tile id="53">
+   <properties>
+    <property name="Background" value="#b2ff66"/>
+    <property name="Code" type="int" value="219"/>
+    <property name="Collideable" type="bool" value="false"/>
+    <property name="Foreground" value="#b2ff66"/>
+   </properties>
+  </tile>
+  <tile id="54">
+   <properties>
+    <property name="Background" value="#b2ff66"/>
+    <property name="Code" type="int" value="15"/>
+    <property name="Collideable" type="bool" value="false"/>
+    <property name="Foreground" value="#d90000"/>
+   </properties>
+  </tile>
+  <tile id="55">
+   <properties>
+    <property name="Background" value="#b2ff66"/>
+    <property name="Code" type="int" value="15"/>
+    <property name="Collideable" type="bool" value="false"/>
+    <property name="Foreground" value="#0080ff"/>
+   </properties>
+  </tile>
+  <tile id="56">
+   <properties>
+    <property name="Background" value="#b2ff66"/>
+    <property name="Code" type="int" value="177"/>
+    <property name="Collideable" type="bool" value="false"/>
+    <property name="Foreground" value="#806640"/>
+   </properties>
+  </tile>
+  <tile id="57">
+   <properties>
+    <property name="Background" value="#000000"/>
+    <property name="Code" type="int" value="2"/>
+    <property name="Collideable" type="bool" value="false"/>
+    <property name="Foreground" value="#ffffff"/>
+   </properties>
+  </tile>
+  <tile id="58">
+   <properties>
+    <property name="Background" value="#9e8664"/>
+    <property name="Code" type="int" value="219"/>
+    <property name="Collideable" type="bool" value="false"/>
+    <property name="Foreground" value="#9e8664"/>
+   </properties>
+  </tile>
+  <tile id="59">
+   <properties>
+    <property name="Background" value="#bfab8f"/>
+    <property name="Code" type="int" value="219"/>
+    <property name="Collideable" type="bool" value="false"/>
+    <property name="Foreground" value="#bfab8f"/>
+   </properties>
+  </tile>
+  <tile id="60">
+   <properties>
+    <property name="Background" value="#bfab8f"/>
+    <property name="Code" type="int" value="181"/>
+    <property name="Collideable" type="bool" value="true"/>
+    <property name="Foreground" value="#9e8664"/>
+   </properties>
+  </tile>
+  <tile id="61">
+   <properties>
+    <property name="Background" value="#bfab8f"/>
+    <property name="Code" type="int" value="195"/>
+    <property name="Collideable" type="bool" value="true"/>
+    <property name="Foreground" value="#9e8664"/>
+   </properties>
+  </tile>
+  <tile id="62">
+   <properties>
+    <property name="Background" value="#bfab8f"/>
+    <property name="Code" type="int" value="179"/>
+    <property name="Collideable" type="bool" value="true"/>
+    <property name="Foreground" value="#9e8664"/>
+   </properties>
+  </tile>
+  <tile id="63">
+   <properties>
+    <property name="Background" value="#bfab8f"/>
+    <property name="Code" type="int" value="219"/>
+    <property name="Collideable" type="bool" value="false"/>
+    <property name="Foreground" value="#bfab8f"/>
+   </properties>
+  </tile>
+  <tile id="64">
+   <properties>
+    <property name="Background" value="#bfab8f"/>
+    <property name="Code" type="int" value="35"/>
+    <property name="Collideable" type="bool" value="true"/>
+    <property name="Foreground" value="#008c00"/>
+   </properties>
+  </tile>
+  <tile id="65">
+   <properties>
+    <property name="Background" value="#bfab8f"/>
+    <property name="Code" type="int" value="231"/>
+    <property name="Collideable" type="bool" value="false"/>
+    <property name="Foreground" value="#008c00"/>
+   </properties>
+  </tile>
+  <tile id="66">
+   <properties>
+    <property name="Background" value="#bfab8f"/>
+    <property name="Code" type="int" value="197"/>
+    <property name="Collideable" type="bool" value="true"/>
+    <property name="Foreground" value="#9e8664"/>
+   </properties>
+  </tile>
+  <tile id="67">
+   <properties>
+    <property name="Background" value="#bfab8f"/>
+    <property name="Code" type="int" value="217"/>
+    <property name="Collideable" type="bool" value="true"/>
+    <property name="Foreground" value="#9e8664"/>
+   </properties>
+  </tile>
+  <tile id="68">
+   <properties>
+    <property name="Background" value="#bfab8f"/>
+    <property name="Code" type="int" value="218"/>
+    <property name="Collideable" type="bool" value="true"/>
+    <property name="Foreground" value="#9e8664"/>
+   </properties>
+  </tile>
+  <tile id="69">
+   <properties>
+    <property name="Background" value="#bfab8f"/>
+    <property name="Code" type="int" value="194"/>
+    <property name="Collideable" type="bool" value="true"/>
+    <property name="Foreground" value="#9e8664"/>
+   </properties>
+  </tile>
+  <tile id="70">
+   <properties>
+    <property name="Background" value="#bfab8f"/>
+    <property name="Code" type="int" value="191"/>
+    <property name="Collideable" type="bool" value="true"/>
+    <property name="Foreground" value="#9e8664"/>
+   </properties>
+  </tile>
+  <tile id="71">
+   <properties>
+    <property name="Background" value="#b2ff66"/>
+    <property name="Code" type="int" value="219"/>
+    <property name="Collideable" type="bool" value="false"/>
+    <property name="Foreground" value="#b2ff66"/>
+   </properties>
+  </tile>
+  <tile id="72">
+   <properties>
+    <property name="Background" value="#bfab8f"/>
+    <property name="Code" type="int" value="179"/>
+    <property name="Collideable" type="bool" value="true"/>
+    <property name="Foreground" value="#9e8664"/>
+   </properties>
+  </tile>
+  <tile id="73">
+   <properties>
+    <property name="Background" value="#bfab8f"/>
+    <property name="Code" type="int" value="211"/>
+    <property name="Collideable" type="bool" value="true"/>
+    <property name="Foreground" value="#9e8664"/>
+   </properties>
+  </tile>
+  <tile id="74">
+   <properties>
+    <property name="Background" value="#bfab8f"/>
+    <property name="Code" type="int" value="195"/>
+    <property name="Collideable" type="bool" value="true"/>
+    <property name="Foreground" value="#9e8664"/>
+   </properties>
+  </tile>
+  <tile id="75">
+   <properties>
+    <property name="Background" value="#bfab8f"/>
+    <property name="Code" type="int" value="180"/>
+    <property name="Collideable" type="bool" value="true"/>
+    <property name="Foreground" value="#9e8664"/>
+   </properties>
+  </tile>
+  <tile id="76">
+   <properties>
+    <property name="Background" value="#bfab8f"/>
+    <property name="Code" type="int" value="196"/>
+    <property name="Collideable" type="bool" value="true"/>
+    <property name="Foreground" value="#9e8664"/>
+   </properties>
+  </tile>
+  <tile id="77">
+   <properties>
+    <property name="Background" value="#b2ff66"/>
+    <property name="Code" type="int" value="219"/>
+    <property name="Collideable" type="bool" value="false"/>
+    <property name="Foreground" value="#b2ff66"/>
+   </properties>
+  </tile>
+  <tile id="78">
+   <properties>
+    <property name="Background" value="#bfab8f"/>
+    <property name="Code" type="int" value="4"/>
+    <property name="Collideable" type="bool" value="true"/>
+    <property name="Foreground" value="#4d4d4d"/>
+   </properties>
+  </tile>
+  <tile id="79">
+   <properties>
+    <property name="Background" value="#bfab8f"/>
+    <property name="Code" type="int" value="7"/>
+    <property name="Collideable" type="bool" value="true"/>
+    <property name="Foreground" value="#4d4d4d"/>
+   </properties>
+  </tile>
+  <tile id="80">
+   <properties>
+    <property name="Background" value="#bfab8f"/>
+    <property name="Code" type="int" value="249"/>
+    <property name="Collideable" type="bool" value="true"/>
+    <property name="Foreground" value="#4d4d4d"/>
+   </properties>
+  </tile>
+  <tile id="81">
+   <properties>
+    <property name="Background" value="#bfab8f"/>
+    <property name="Code" type="int" value="250"/>
+    <property name="Collideable" type="bool" value="false"/>
+    <property name="Foreground" value="#4d4d4d"/>
+   </properties>
+  </tile>
+  <tile id="82">
+   <properties>
+    <property name="Background" value="#b2ff66"/>
+    <property name="Code" type="int" value="219"/>
+    <property name="Collideable" type="bool" value="false"/>
+    <property name="Foreground" value="#b2ff66"/>
+   </properties>
+  </tile>
+  <tile id="83">
+   <properties>
+    <property name="Background" value="#b2ff66"/>
+    <property name="Code" type="int" value="219"/>
+    <property name="Collideable" type="bool" value="false"/>
+    <property name="Foreground" value="#b2ff66"/>
+   </properties>
+  </tile>
+  <tile id="84">
+   <properties>
+    <property name="Background" value="#bfab8f"/>
+    <property name="Code" type="int" value="4"/>
+    <property name="Collideable" type="bool" value="true"/>
+    <property name="Foreground" value="#9e9e9e"/>
+   </properties>
+  </tile>
+  <tile id="85">
+   <properties>
+    <property name="Background" value="#bfab8f"/>
+    <property name="Code" type="int" value="7"/>
+    <property name="Collideable" type="bool" value="true"/>
+    <property name="Foreground" value="#9e9e9e"/>
+   </properties>
+  </tile>
+  <tile id="86">
+   <properties>
+    <property name="Background" value="#bfab8f"/>
+    <property name="Code" type="int" value="249"/>
+    <property name="Collideable" type="bool" value="true"/>
+    <property name="Foreground" value="#9e9e9e"/>
+   </properties>
+  </tile>
+  <tile id="87">
+   <properties>
+    <property name="Background" value="#bfab8f"/>
+    <property name="Code" type="int" value="250"/>
+    <property name="Collideable" type="bool" value="false"/>
+    <property name="Foreground" value="#9e9e9e"/>
+   </properties>
+  </tile>
+  <tile id="88">
+   <properties>
+    <property name="Background" value="#b2ff66"/>
+    <property name="Code" type="int" value="219"/>
+    <property name="Collideable" type="bool" value="false"/>
+    <property name="Foreground" value="#b2ff66"/>
+   </properties>
+  </tile>
+  <tile id="89">
+   <properties>
+    <property name="Background" value="#b2ff66"/>
+    <property name="Code" type="int" value="219"/>
+    <property name="Collideable" type="bool" value="false"/>
+    <property name="Foreground" value="#b2ff66"/>
+   </properties>
+  </tile>
+ </tileset>
+ <layer name="Level Layer" width="100" height="100">
+  <properties>
+   <property name="ZIndex" type="int" value="0"/>
+  </properties>
+  <data encoding="base64" compression="zlib">
+   eJztnctqFEEUhkc3WbkSF8ZFCKiB+AAiCMHoJl6YJJCY938Sp3EaisO516lbpxY/o9Pd1VX/V+fUZTozZ7vd7mxq0/qgUHr+ZYHyufttRdq2f1TI46ml/Jz7Rfn1HshzPee/x4cRFcEOsrAygec/J/8j2UXwmCzK8IFcPCzOHHWw5MTWfrVgkztmRPjem0bjItU7149PHTBZ+5+U00tyscztqdjwtPtzB95reXjmol52FialclRvbCJ5eNhomOTERi+5yMskslwLE2s51Lm99PdoL6MYa7lE8ehBpfp3ZJ28PLBcFVXHFwe9RF6p87nYw/Jir0zW/3tyloadN0edHPQKeW3tW01ZYwSek9vn0n6MsTghzt2qLDywXGWdC3Kxc3rQ6+Prm6NOO/CoFyaa8yLn5ov3b4+v747K5dHL/C6CBxxDKGaRTL409KGneZgmRrjjnrZgfbclj7Qdo/PQSDMeW3n04l8tJh4eOTlbyyN6ry9XJeogjSHR60Cs7hoePbOosedYggdVd298tGIxKg+Yw6j6R4/n1ue1ophElcvlrBL5yhsfVu8lLhFe1tyTh8ci7/mVkbWsnOfWesl/tXlw/kuSOHBrWw2X3phw7dHw4NqTw0HiQtVb2nPg2tGahaVtHActj29AXh5YXFwkih73euNhjQvIAnLAlJ5/L/DgWGBM1hipNffqmYeGRcrjGmEBmWB1lJi09jiSCcWDK8/C45ZhoI2RreUsjom1HG7c2O/wHLXGxR55D+NxydQXq/8ouUrDJJIH5PCInG+d/3r6UeQaqCYPTxkav7Exe5WUv3Lal8t+NB5SGzGvuRyl9csy3xuZSQQPymON9w+Kc6T5c4S2xEPy1RIT2PmaNc1dwL23wIMaJ/bE+6m/8H0s11nXmlKc9cgkZ+3B9WmqL6Zj/q3RT4rBnYHHEygLvt+aiWXfSsPjWukL5uuTcG1UbGCxScVwTzwgE44HjIc1DiivPL56rtHuB/SStzTjB8ZEm5+gZ/fEsUfG279EmZY8BUWN+S155HzuYWkvxoLr77As67oeY3ieqNf4sKwHNTw8vmF8rP039R+L03NEWBlUjPfIAyrH90WatR8mbDyQ1hUSD47llngs7eb2rrR+WteQqdY4+3nQ94P+HPSDKRfLmSPygGP6wuK34BHsn6uotQB3zSpsXrfOZW+Y67kxbEQeaX9b2/prZx8/HxgeFAN4nPL1JrkHVQY2nxiVB9RV8m8sb3G5jMtR8Bj0V7s+2SvuNToPrP2W9YEUA6uknIbxoOZ/Ulkj88DyBfRYM8ZjwubAad/GWFLxYZnfjc4DY6I938OJUu56qCYLjIn12ijfcvcF07ih+r02D47MI5dJxB4tLC8yvmqziOBhYULN+UvGlnct2YIF5JHznbOwPd4xm/Ncw2TUuMB45D7bR7XPs1fl+VxkZA4leHBMMGExFP0ZoCZ3tWZQkofERMpjEg8tF+240dr/GjyscUKxWMb/ZU+De+5Bu4c8AouSPKxcML+XPr6s6R6I43APGYsJ7jnt3oT97VGJ32SwMkl9vN7xeUq7h9zaa09slIoRDxssbrDjVxthwfEo/bslFh4w34zwzGc0j9Ix4mWzJe975TH1X9Jve7Su33MTx2Ly6I/HVn+LrFdJPGaMTB7PWRoeM2fVEZxbYd9xMGOknqDnk8c4PGbOqs9jjuvtNXn0JQuPmbP64jFjpD4PbkyfPOozmTzay8JjjiH1ecwYmTymeB5zrT4Ojxkj5YTt8c4YaSds/aGNkckkVtJ31Es8JpOyLDAek0k7FhSPyaQvFhoek4mdg/QsIsfDEie9cvH83lQLDloWHi6120391hf1Ny416snVIYKFJ4+VaK/Gc4ui2XjqlMPCwgTrj5Z2R3tfo661OXi5SO2u7X3Lukqe/gORqL/2
+  </data>
+ </layer>
+ <objectgroup color="#ff0000" name="Objects">
+  <object id="1" name="Spawn" type="Spawn" x="400" y="304" width="16" height="16"/>
+ </objectgroup>
+</map>

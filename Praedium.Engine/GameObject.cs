@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using Bramble.Core;
 using Malison.Core;
 using Praedium.Engine.Components;
-using Praedium.Engine.Attributes;
 
 namespace Praedium.Engine
 {
@@ -43,6 +42,12 @@ namespace Praedium.Engine
                     }
                 }
             }
+        }
+
+        public string Name
+        {
+            get;
+            set;
         }
 
         /// <summary>
@@ -88,12 +93,12 @@ namespace Praedium.Engine
 
         public Component GetComponentOfType(Type type)
         {
-            return Components.Find(x => x.GetType() == type);
+            return Components.Find(x => x.GetType().IsAssignableFrom(type));
         }
 
         public IList<Component> GetComponentsOfType(Type type)
         {
-            return Components.FindAll(x => x.GetType() == type).ToList();
+            return Components.FindAll(x => x.GetType().IsAssignableFrom(type)).ToList();
         }
 
         public abstract void Render(ITerminal terminal);

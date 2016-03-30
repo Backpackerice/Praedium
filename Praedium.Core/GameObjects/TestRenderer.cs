@@ -20,9 +20,9 @@ namespace Praedium.Core.GameObjects
 
             TermColor[] colors = TermColor.Analogous(TermColor.Blue.Lighter(0.2), 16).ToArray();
 
-            for (int i = terminal.Size.X / 4; i < terminal.Size.X / 2 + terminal.Size.X / 4; i++)
+            for (int i = terminal.Size.X / 4; i < terminal.Size.X / 4 + 20; i++)
             {
-                for (int j = (terminal.Size.Y + 1) / 4; j < terminal.Size.Y / 2 + terminal.Size.Y / 4; j++)
+                for (int j = (terminal.Size.Y + 1) / 4; j < terminal.Size.Y / 4 + 20; j++)
                 {
                     //Random character with random foreground and background colors
                     terminal[i, j][colors[Game.RNG.Next(0, colors.Length)], colors[Game.RNG.Next(0, colors.Length)]].Write((int)glyphs[Game.RNG.Next(0, glyphs.Length)]);

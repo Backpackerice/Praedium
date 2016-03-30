@@ -5,7 +5,6 @@ using System.Text;
 using System.Threading.Tasks;
 using Bramble.Core;
 using Malison.Core;
-using Praedium.Engine.Attributes;
 using Praedium.Engine.Components;
 using Praedium.Core.Components;
 using Praedium.Engine;
@@ -17,12 +16,11 @@ namespace Praedium.Core.GameObjects
     {
         public override void Render(Malison.Core.ITerminal terminal)
         {
-            terminal[Position][TermColor.White, TermColor.Black].Write((int)    Glyph.CharacterInversed);
+            terminal[Position - Game.ViewPortOffset][TermColor.White, TermColor.Black].Write((int)Glyph.CharacterInversed);
         }
 
         protected override void OnStart()
         {
-            Position = Vector2D.Zero;
         }
     }
 }

@@ -44,7 +44,11 @@ namespace Praedium.Core.Components
                 
                 if(movement != Vector2D.Zero)
                 {
-                    GameObject.Position += movement;
+                    if(!Game.TileCollideable(GameObject.Position + movement))
+                    {
+                        GameObject.Position += movement;
+                        Game.MoveViewBy(movement);
+                    }
                 }
             }
         }
