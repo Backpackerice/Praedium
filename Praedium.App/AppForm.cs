@@ -14,6 +14,7 @@ using System.Diagnostics;
 using Praedium.Engine.UI;
 using Praedium.Engine;
 using Praedium.Core.GameObjects;
+using Praedium.Core.Levels;
 
 namespace Praedium.App
 {
@@ -35,10 +36,7 @@ namespace Praedium.App
 
             _game = new Game(Terminal);
 
-            _game.AddGameObject(new TestRenderer());
-            _game.AddGameObject(new Player());
-
-            _game.Setup();
+            _game.LoadLevel(new FarmLevel());
 
             Application.Idle += Application_Idle;
 
@@ -52,6 +50,19 @@ namespace Praedium.App
             m16x16ToolStripMenuItem.Click += m16x16ToolStripMenuItem_Click;
             m18x18ToolStripMenuItem.Click += m18x18ToolStripMenuItem_Click;
             m20x20ToolStripMenuItem.Click += m20x20ToolStripMenuItem_Click;
+            TerminalControl.Resize += TerminalControler_Resize;
+        }
+
+        void TerminalControler_Resize(object sender, EventArgs e)
+        {
+            int paddingX = TerminalControl.Size.Width % TerminalControl.GlyphSheet.Width;
+            int paddingY = TerminalControl.Size.Width % TerminalControl.GlyphSheet.Height;
+
+            int width = (TerminalControl.Size.Width - paddingX) / TerminalControl.GlyphSheet.Width;
+            int height = (TerminalControl.Size.Height - paddingY) / TerminalControl.GlyphSheet.Height;
+
+            Terminal = new Terminal(width, height, Encoding.GetEncoding(437));
+            _game.Terminal = Terminal;
         }
 
         protected override void FontToolStripMenuItem_DropDownOpening(object sender, EventArgs e)
@@ -68,36 +79,43 @@ namespace Praedium.App
         void m20x20ToolStripMenuItem_Click(object sender, EventArgs e)
         {
             TerminalControl.GlyphSheet = new GlyphSheet(Resources.cp437_20x20, 16, 16);
+            TerminalControler_Resize(this, new EventArgs());
         }
 
         void m18x18ToolStripMenuItem_Click(object sender, EventArgs e)
         {
             TerminalControl.GlyphSheet = new GlyphSheet(Resources.cp437_18x18, 16, 16);
+            TerminalControler_Resize(this, new EventArgs());
         }
 
         void m16x16ToolStripMenuItem_Click(object sender, EventArgs e)
         {
             TerminalControl.GlyphSheet = new GlyphSheet(Resources.cp437_16x16, 16, 16);
+            TerminalControler_Resize(this, new EventArgs());
         }
 
         void m14x14ToolStripMenuItem_Click(object sender, EventArgs e)
         {
             TerminalControl.GlyphSheet = new GlyphSheet(Resources.cp437_14x14, 16, 16);
+            TerminalControler_Resize(this, new EventArgs());
         }
 
         void m12x12ToolStripMenuItem_Click(object sender, EventArgs e)
         {
             TerminalControl.GlyphSheet = new GlyphSheet(Resources.cp437_12x12, 16, 16);
+            TerminalControler_Resize(this, new EventArgs());
         }
 
         void m10x10ToolStripMenuItem_Click(object sender, EventArgs e)
         {
             TerminalControl.GlyphSheet = new GlyphSheet(Resources.cp437_10x10, 16, 16);
+            TerminalControler_Resize(this, new EventArgs());
         }
 
         void m8x8ToolStripMenuItem_Click(object sender, EventArgs e)
         {
             TerminalControl.GlyphSheet = new GlyphSheet(Resources.cp437_8x8, 16, 16);
+            TerminalControler_Resize(this, new EventArgs());
         }
         
         void TerminalControl_KeyUp(object sender, KeyEventArgs e)
