@@ -34,7 +34,7 @@ namespace Praedium.Core.Levels
 
             foreach (var layer in map.Layers)
             {
-                int zIndex = 0;
+                int zIndex = int.Parse(layer.Properties["ZIndex"]);
 
                 Tile[] tiles = layer.Tiles.Select(x => GetTile(x, tileset)).ToArray();
 

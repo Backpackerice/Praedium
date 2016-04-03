@@ -45,6 +45,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Components\CellRenderer.cs" />
+    <Compile Include="Components\Renderer.cs" />
     <Compile Include="Components\RequireComponent.cs" />
     <Compile Include="Components\Component.cs" />
     <Compile Include="Game.cs" />

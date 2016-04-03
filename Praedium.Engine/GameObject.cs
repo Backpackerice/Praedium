@@ -37,8 +37,7 @@ namespace Praedium.Engine
                     if (GetComponentOfType(componentType) == null)
                     {
                         Component instance = Activator.CreateInstance(componentType) as Component;
-                        instance.AttachTo(this);
-                        Components.Add(instance);
+                        AddComponent(instance);
                     }
                 }
             }
@@ -89,18 +88,17 @@ namespace Praedium.Engine
         public void AddComponent(Component component)
         {
             Components.Add(component);
+            component.AttachTo(this);
         }
 
         public Component GetComponentOfType(Type type)
         {
-            return Components.Find(x => x.GetType().IsAssignableFrom(type));
+            return Components.Find(x => x.GetType().IsSubclassOf(type) || x.GetType() == type);
         }
 
         public IList<Component> GetComponentsOfType(Type type)
         {
-            return Components.FindAll(x => x.GetType().IsAssignableFrom(type)).ToList();
+            return Components.FindAll(x => x.GetType().IsSubclassOf(type) || x.GetType() == type).ToList();
         }
-
-        public abstract void Render(ITerminal terminal);
     }
 }

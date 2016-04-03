@@ -8,6 +8,9 @@ using System.Threading.Tasks;
 
 namespace Praedium.Engine
 {
+    /// <summary>
+    /// A simple structure representing a single tile in a tile map
+    /// </summary>
     public struct Tile
     {
         public Character Character;

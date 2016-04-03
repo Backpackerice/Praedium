@@ -7,12 +7,14 @@ using System.Diagnostics;
 using Malison.Core;
 using Praedium.Engine.UI;
 using Bramble.Core;
+using Praedium.Engine.Components;
 
 namespace Praedium.Engine
 {
     public class Game
     {
         private List<GameObject> entities;
+        private List<Renderer> renderables;
 
         private TimeSpan accumulatedTime;
         private TimeSpan lastTime;
@@ -52,6 +54,7 @@ namespace Praedium.Engine
             }
             set
             {
+                // If previous terminal instance existed, resize the viewport to scale nicely within the window
                 if(terminal != null)
                     Viewport = new Rect(ViewPortOffset + (terminal.Size / 2 - value.Size / 2), value.Size);
                 terminal = value;
@@ -85,6 +88,7 @@ namespace Praedium.Engine
             RNG = new Random();
             UI = new UserInterface();
             entities = new List<GameObject>();
+            renderables = new List<Renderer>();
         }
 
         public void LoadLevel(Level targetLevel)
@@ -92,13 +96,12 @@ namespace Praedium.Engine
             if(Level != null)
                 Level.Unload();
             entities.Clear();
+            renderables.Clear();
 
             targetLevel.Game = this;
             targetLevel.Load();
 
             Level = targetLevel;
-
-            Setup();
         }
 
         public void CenterViewTo(Vector2D position)
@@ -158,18 +161,19 @@ namespace Praedium.Engine
             UI.ApplyKeyInfo(info);
         }
 
-        public void Setup()
-        {
-            foreach (var entity in entities)
-            {
-                entity.Start();
-            }
-        }
-
         public void AddGameObject(GameObject gameObject)
         {
             entities.Add(gameObject);
             gameObject.Game = this;
+
+            var renderers = gameObject.GetComponentsOfType(typeof(Renderer));
+
+            foreach (Renderer renderer in renderers)
+            {
+                renderables.Add(renderer);
+            }
+
+            gameObject.Start();
         }
 
         private void OnKeyDown()
@@ -202,9 +206,9 @@ namespace Praedium.Engine
 
             Level.Render(Terminal);
 
-            foreach(var entity in entities)
+            foreach(var renderer in renderables)
             {
-                entity.Render(Terminal);
+                renderer.Render(Terminal);
             }
         }
     }

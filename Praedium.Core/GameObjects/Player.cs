@@ -12,15 +12,18 @@ using Praedium.Engine;
 namespace Praedium.Core.GameObjects
 {
     [RequireComponent(typeof(PlayerMovementHandler))]
+    [RequireComponent(typeof(CellRenderer))]
     public class Player : GameObject
     {
-        public override void Render(Malison.Core.ITerminal terminal)
-        {
-            terminal[Position - Game.ViewPortOffset][TermColor.White, TermColor.Black].Write((int)Glyph.CharacterInversed);
-        }
+        private CellRenderer renderer;
 
         protected override void OnStart()
         {
+            Name = "Player";
+
+            renderer = (CellRenderer)GetComponentOfType(typeof(CellRenderer));
+
+            renderer.Character = new Character((int)Glyph.CharacterInversed, TermColor.White, TermColor.Black);
         }
     }
 }

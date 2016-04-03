@@ -26,7 +26,6 @@ namespace Praedium.Engine.Components
                     if (GameObject.GetComponentOfType(componentType) != null)
                     {
                         Component instance = Activator.CreateInstance(componentType) as Component;
-                        instance.AttachTo(GameObject);
                         GameObject.AddComponent(instance);
                     }
                 }

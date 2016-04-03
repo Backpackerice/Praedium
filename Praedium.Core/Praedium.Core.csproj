@@ -54,7 +54,6 @@
     <Compile Include="Glyph.cs" />
     <Compile Include="Levels\FarmLevel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="GameObjects\TestRenderer.cs" />
     <Compile Include="Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

@@ -6,6 +6,10 @@ using System.Threading.Tasks;
 
 namespace Praedium.Engine
 {
+    /// <summary>
+    /// A structure representing a tile layer. It contains an array of tiles.
+    /// Each tile map can have many tile layers, ordered by their Z indexes.
+    /// </summary>
     public struct TileLayer
     {
         public int ZIndex;
