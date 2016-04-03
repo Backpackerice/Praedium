@@ -57,6 +57,7 @@ dlldata.c
 *.vsp
 *.vspx
 *.sap
+*.etl
 
 # Click-Once directory
 publish/

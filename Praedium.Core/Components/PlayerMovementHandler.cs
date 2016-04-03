@@ -5,27 +5,27 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Praedium.UI;
+using Praedium.Engine.UI;
+using Praedium.Engine.Components;
 
 namespace Praedium.Core.Components
 {
-    public class TestMoveComponent : Component
+    public class PlayerMovementHandler : Component
     {
-        private const double SPEED = 0.1f;
+        // Limit movement speed to 10 tiles per second
+        private const double LAG = 0.1f;
 
         private double elaspedTime;
-        private Player player;
 
         protected override void OnStart()
-        {
-            player = GameObject as Player;
-        }
+        { }
 
         public override void Update()
         {
-            elaspedTime += Game.DeltaTime;
+            if(elaspedTime < LAG)
+                elaspedTime += Game.DeltaTime;
 
-            if(elaspedTime > SPEED)
+            if(elaspedTime > LAG)
             {
                 elaspedTime = 0;
                 Vector2D movement = Vector2D.Zero;
@@ -41,16 +41,14 @@ namespace Praedium.Core.Components
 
                 if(Game.UI.IsKeyDown(Key.S))
                     movement += new Vector2D(0, 1);
-
-                if(Game.UI.IsKeyDown(Key.R))
-                    GameObject.Position = Vector2D.Zero;
-
+                
                 if(movement != Vector2D.Zero)
                 {
-                    TermColor[] colors = (TermColor[])Enum.GetValues(typeof(TermColor));
-                    player.ForeColor = colors[Game.RNG.Next(0, colors.Length - 1)];
-
-                    GameObject.Position += movement;
+                    if(!Game.TileCollideable(GameObject.Position + movement))
+                    {
+                        GameObject.Position += movement;
+                        Game.MoveViewBy(movement);
+                    }
                 }
             }
         }

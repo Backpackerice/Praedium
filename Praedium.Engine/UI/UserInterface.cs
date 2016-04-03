@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Praedium.UI
+namespace Praedium.Engine.UI
 {
     public class UserInterface
     {

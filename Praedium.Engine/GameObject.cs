@@ -5,10 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using Bramble.Core;
 using Malison.Core;
-using Praedium.Core.Components;
-using Praedium.Core.Attributes;
+using Praedium.Engine.Components;
 
-namespace Praedium.Core
+namespace Praedium.Engine
 {
     public abstract class GameObject
     {
@@ -38,11 +37,16 @@ namespace Praedium.Core
                     if (GetComponentOfType(componentType) == null)
                     {
                         Component instance = Activator.CreateInstance(componentType) as Component;
-                        instance.AttachTo(this);
-                        Components.Add(instance);
+                        AddComponent(instance);
                     }
                 }
             }
+        }
+
+        public string Name
+        {
+            get;
+            set;
         }
 
         /// <summary>
@@ -84,18 +88,17 @@ namespace Praedium.Core
         public void AddComponent(Component component)
         {
             Components.Add(component);
+            component.AttachTo(this);
         }
 
         public Component GetComponentOfType(Type type)
         {
-            return Components.Find(x => x.GetType() == type);
+            return Components.Find(x => x.GetType().IsSubclassOf(type) || x.GetType() == type);
         }
 
         public IList<Component> GetComponentsOfType(Type type)
         {
-            return Components.FindAll(x => x.GetType() == type).ToList();
+            return Components.FindAll(x => x.GetType().IsSubclassOf(type) || x.GetType() == type).ToList();
         }
-
-        public abstract void Render(ITerminal terminal);
     }
 }

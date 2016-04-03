@@ -1,11 +1,10 @@
-﻿using Praedium.Core.Attributes;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Praedium.Core.Components
+namespace Praedium.Engine.Components
 {
     public abstract class Component
     {
@@ -27,7 +26,6 @@ namespace Praedium.Core.Components
                     if (GameObject.GetComponentOfType(componentType) != null)
                     {
                         Component instance = Activator.CreateInstance(componentType) as Component;
-                        instance.AttachTo(GameObject);
                         GameObject.AddComponent(instance);
                     }
                 }
