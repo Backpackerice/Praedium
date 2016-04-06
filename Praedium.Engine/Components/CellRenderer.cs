@@ -8,6 +8,10 @@ using System.Threading.Tasks;
 
 namespace Praedium.Engine.Components
 {
+    /// <summary>
+    /// Basic Renderer which renders a single Character in it's GameObject's position.
+    /// You can set the Offset value to alter the positioning.
+    /// </summary>
     public class CellRenderer : Renderer
     {
         public Character Character
@@ -18,7 +22,7 @@ namespace Praedium.Engine.Components
 
         public override void Render(ITerminal terminal)
         {
-            if (Game.Viewport.Contains(GameObject.Position + Offset))
+            if (Game.ViewPort.Contains(GameObject.Position + Offset))
             {
                 terminal[GameObject.Position + Offset - Game.ViewPortOffset].Write(Character);
             }

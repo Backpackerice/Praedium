@@ -71,6 +71,17 @@ namespace Praedium.Engine
             }
         }
 
+        public void Render(ITerminal terminal)
+        {
+            foreach (Component component in Components)
+            {
+                Renderer renderer = component as Renderer;
+
+                if (renderer != null)
+                    renderer.Render(terminal);
+            }
+        }
+
         public Game Game
         {
             get;

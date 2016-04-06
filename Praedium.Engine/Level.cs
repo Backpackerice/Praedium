@@ -14,8 +14,6 @@ namespace Praedium.Engine
     {
         public SortedList<int, TileLayer> Layers = new SortedList<int,TileLayer>();
 
-        public List<GameObject> Entities = new List<GameObject>();
-
         public Game Game
         {
             get;
@@ -31,7 +29,7 @@ namespace Praedium.Engine
             {
                 foreach (var tile in layer.Tiles)
                 {
-                    if(Game.Viewport.Contains(tile.Position))
+                    if(Game.ViewPort.Contains(tile.Position))
                     {
                         terminal[tile.Position - Game.ViewPortOffset].Write(tile.Character);
                     }
