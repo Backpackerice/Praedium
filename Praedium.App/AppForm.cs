@@ -42,6 +42,9 @@ namespace Praedium.App
 
             TerminalControl.KeyDown += TerminalControl_KeyDown;
             TerminalControl.KeyUp += TerminalControl_KeyUp;
+            TerminalControl.MouseMove += TerminalControl_MouseMove;
+            TerminalControl.MouseDown += TerminalControl_MouseDown;
+            TerminalControl.MouseUp += TerminalControl_MouseUp;
 
             m8x8ToolStripMenuItem.Click += m8x8ToolStripMenuItem_Click;
             m10x10ToolStripMenuItem.Click += m10x10ToolStripMenuItem_Click;
@@ -51,6 +54,46 @@ namespace Praedium.App
             m18x18ToolStripMenuItem.Click += m18x18ToolStripMenuItem_Click;
             m20x20ToolStripMenuItem.Click += m20x20ToolStripMenuItem_Click;
             TerminalControl.Resize += TerminalControler_Resize;
+        }
+
+        void TerminalControl_MouseUp(object sender, MouseEventArgs e)
+        {
+            MouseInfo info;
+
+            IMouseParser parser = new WindowsMouseParser(e, TerminalControl);
+
+            if(parser.Parse(out info))
+            {
+                info.Down = false;
+                _game.UI.ApplyMouseInfo(info);
+                _game.UI.ApplyMousePosition(info.Position);
+            }
+        }
+
+        void TerminalControl_MouseDown(object sender, MouseEventArgs e)
+        {
+            MouseInfo info;
+
+            IMouseParser parser = new WindowsMouseParser(e, TerminalControl);
+
+            if (parser.Parse(out info))
+            {
+                info.Down = true;
+                _game.UI.ApplyMouseInfo(info);
+                _game.UI.ApplyMousePosition(info.Position);
+            }
+        }
+
+        void TerminalControl_MouseMove(object sender, MouseEventArgs e)
+        {
+            MouseInfo info;
+
+            IMouseParser parser = new WindowsMouseParser(e, TerminalControl);
+
+            if (parser.Parse(out info))
+            {
+                _game.UI.ApplyMousePosition(info.Position);
+            }
         }
 
         void TerminalControler_Resize(object sender, EventArgs e)

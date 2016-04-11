@@ -56,9 +56,13 @@
     <Compile Include="Tile.cs" />
     <Compile Include="TileLayer.cs" />
     <Compile Include="UI\IKeyParser.cs" />
+    <Compile Include="UI\IMouseParser.cs" />
     <Compile Include="UI\Key.cs" />
     <Compile Include="UI\KeyInfo.cs" />
     <Compile Include="UI\KeyInfoEventArgs.cs" />
+    <Compile Include="UI\MouseButton.cs" />
+    <Compile Include="UI\MouseInfo.cs" />
+    <Compile Include="UI\MouseInfoEventArgs.cs" />
     <Compile Include="UI\UserInterface.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
