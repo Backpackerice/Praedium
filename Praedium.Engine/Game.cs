@@ -26,12 +26,6 @@ namespace Praedium.Engine
             private set;
         }
 
-        public KeyInfo CurrentKeyInfo
-        {
-            get;
-            private set;
-        }
-
         public readonly TimeSpan TargetElapsedTime = TimeSpan.FromTicks(TimeSpan.TicksPerSecond / 60);
         public readonly TimeSpan MaxElapsedTime = TimeSpan.FromTicks(TimeSpan.TicksPerSecond / 10);
 
@@ -123,6 +117,17 @@ namespace Praedium.Engine
             return false;
         }
 
+        public GameObject GetObjectAt(Vector2D position)
+        {
+            foreach(var obj in entities)
+            {
+                if (obj.Position == position)
+                    return obj;
+            }
+
+            return null;
+        }
+
         public double DeltaTime
         {
             get
@@ -137,6 +142,8 @@ namespace Praedium.Engine
             TimeSpan elapsedTime = currentTime - lastTime;
             lastTime = currentTime;
 
+            bool updated = false;
+
             if (elapsedTime > MaxElapsedTime)
             {
                 elapsedTime = MaxElapsedTime;
@@ -149,14 +156,21 @@ namespace Praedium.Engine
                 Update();
 
                 accumulatedTime -= TargetElapsedTime;
+                updated = true;
             }
 
-            Render();
+            if(updated)
+                Render();
         }
 
         public void HandleInput(KeyInfo info)
         {
             UI.ApplyKeyInfo(info);
+
+            if (info.Down)
+                OnKeyDown(info);
+            else
+                OnKeyUp(info);
         }
 
         public void AddGameObject(GameObject gameObject)
@@ -166,19 +180,19 @@ namespace Praedium.Engine
             gameObject.Start();
         }
 
-        private void OnKeyDown()
+        private void OnKeyDown(KeyInfo info)
         {
             if (KeyDown != null)
             {
-                KeyDown(this, new KeyInfoEventArgs(CurrentKeyInfo));
+                KeyDown(this, new KeyInfoEventArgs(info));
             }
         }
 
-        private void OnKeyUp()
+        private void OnKeyUp(KeyInfo info)
         {
             if (KeyUp != null)
             {
-                KeyUp(this, new KeyInfoEventArgs(CurrentKeyInfo));
+                KeyUp(this, new KeyInfoEventArgs(info));
             }
         }
 

@@ -36,15 +36,33 @@ namespace Praedium.Core.Levels
             {
                 int zIndex = int.Parse(layer.Properties["ZIndex"]);
 
-                Tile[] tiles = layer.Tiles.Select(x => GetTile(x, tileset)).ToArray();
+                Tile[] tiles = layer.Tiles.Where(x => x.Gid > 0).Select(x => GetTile(x, tileset)).ToArray();
 
                 AddTileLayer(new TileLayer(zIndex, tiles));
+            }
+
+            foreach(var field in map.ObjectGroups[0].Objects.Where(x => x.Name == "Field Block"))
+            {
+                int width = (int)field.Width / map.TileWidth;
+                int height = (int)field.Height / map.TileHeight;
+                int x = (int)field.X / map.TileWidth;
+                int y = (int)field.Y / map.TileHeight;
+
+                for (int i = 0; i < width; i++)
+                {
+                    for (int j = 0; j < height; j++)
+                    {
+                        FieldTile tile = new FieldTile();
+                        tile.Position = new Vector2D(x + i, y + j);
+                        AddGameObject(tile);
+                    }
+                }
             }
 
             var spawn = map.ObjectGroups[0].Objects["Spawn"];
 
             Player player = new Player();
-            player.Position = new Vector2D((int)(spawn.X / spawn.Width), (int)(spawn.Y / spawn.Height));
+            player.Position = new Vector2D((int)(spawn.X / map.TileWidth), (int)(spawn.Y / map.TileHeight));
 
             AddGameObject(player);
 

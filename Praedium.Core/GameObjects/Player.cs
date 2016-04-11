@@ -13,6 +13,7 @@ namespace Praedium.Core.GameObjects
 {
     [RequireComponent(typeof(PlayerMovementHandler))]
     [RequireComponent(typeof(CellRenderer))]
+    [RequireComponent(typeof(ToolHandler))]
     public class Player : GameObject
     {
         private CellRenderer renderer;

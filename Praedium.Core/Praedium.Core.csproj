@@ -49,6 +49,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Colors.cs" />
+    <Compile Include="Components\ToolHandler.cs" />
+    <Compile Include="GameObjects\FieldTile.cs" />
     <Compile Include="GameObjects\Player.cs" />
     <Compile Include="Components\PlayerMovementHandler.cs" />
     <Compile Include="Glyph.cs" />
