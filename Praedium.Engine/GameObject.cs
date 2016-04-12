@@ -13,8 +13,6 @@ namespace Praedium.Engine
     {
         public GameObject()
         {
-            Position = Vector2D.Zero;
-
             Components = new List<Component>();
 
             AttachComponents();
@@ -89,7 +87,7 @@ namespace Praedium.Engine
             set;
         }
 
-        public Vector2D Position
+        public virtual Vector2D Position
         {
             get;
             set;

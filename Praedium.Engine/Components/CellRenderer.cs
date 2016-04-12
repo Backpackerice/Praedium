@@ -20,11 +20,24 @@ namespace Praedium.Engine.Components
             set;
         }
 
+        public Vector2D Position
+        {
+            get;
+            set;
+        }
+
         public override void Render(ITerminal terminal)
         {
-            if (Game.ViewPort.Contains(GameObject.Position + Offset))
+            if(Units == Components.Units.World)
             {
-                terminal[GameObject.Position + Offset - Game.ViewPortOffset].Write(Character);
+                if (Game.ViewPort.Contains(GameObject.Position + Offset))
+                {
+                    terminal[Position + Offset - Game.ViewPortOffset].Write(Character);
+                }
+            }
+            else
+            {
+                terminal[Position + Offset].Write(Character);
             }
         }
 

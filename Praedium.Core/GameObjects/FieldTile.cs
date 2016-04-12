@@ -44,6 +44,20 @@ namespace Praedium.Core.GameObjects
             }
         }
 
+        public override Bramble.Core.Vector2D Position
+        {
+            get
+            {
+                return base.Position;
+            }
+            set
+            {
+                base.Position = value;
+                if(renderer != null)
+                    renderer.Position = value;
+            }
+        }
+
         protected override void OnStart()
         {
             Name = "FieldTile";
@@ -51,6 +65,8 @@ namespace Praedium.Core.GameObjects
             renderer = (CellRenderer)GetComponentOfType(typeof(CellRenderer));
 
             renderer.Character = new Character((int)Glyph.Space, Colors.Soil, Colors.Soil);
+
+            renderer.Position = Position;
         }
 
         public void Till()

@@ -65,6 +65,7 @@ namespace Praedium.Core.Levels
             player.Position = new Vector2D((int)(spawn.X / map.TileWidth), (int)(spawn.Y / map.TileHeight));
 
             AddGameObject(player);
+            AddGameObject(new MouseController());
 
             Game.CenterViewTo(player.Position);
         }
