@@ -14,7 +14,6 @@ namespace Praedium.Engine
     public class Game
     {
         private List<GameObject> entities;
-        private List<Renderer> renderables;
 
         private TimeSpan accumulatedTime;
         private TimeSpan lastTime;
@@ -22,12 +21,6 @@ namespace Praedium.Engine
         private ITerminal terminal;
 
         public UserInterface UI
-        {
-            get;
-            private set;
-        }
-
-        public KeyInfo CurrentKeyInfo
         {
             get;
             private set;
@@ -56,7 +49,7 @@ namespace Praedium.Engine
             {
                 // If previous terminal instance existed, resize the viewport to scale nicely within the window
                 if(terminal != null)
-                    Viewport = new Rect(ViewPortOffset + (terminal.Size / 2 - value.Size / 2), value.Size);
+                    ViewPort = new Rect(ViewPortOffset + (terminal.Size / 2 - value.Size / 2), value.Size);
                 terminal = value;
             }
         }
@@ -65,11 +58,11 @@ namespace Praedium.Engine
         {
             get
             {
-                return Viewport.Position;
+                return ViewPort.Position;
             }
         }
 
-        public Rect Viewport
+        public Rect ViewPort
         {
             get;
             private set;
@@ -88,15 +81,14 @@ namespace Praedium.Engine
             RNG = new Random();
             UI = new UserInterface();
             entities = new List<GameObject>();
-            renderables = new List<Renderer>();
         }
 
         public void LoadLevel(Level targetLevel)
         {
             if(Level != null)
                 Level.Unload();
+
             entities.Clear();
-            renderables.Clear();
 
             targetLevel.Game = this;
             targetLevel.Load();
@@ -106,12 +98,12 @@ namespace Praedium.Engine
 
         public void CenterViewTo(Vector2D position)
         {
-            Viewport = new Rect(new Vector2D(position.X - Terminal.Size.X / 2, position.Y - Terminal.Size.Y / 2), Terminal.Size);
+            ViewPort = new Rect(new Vector2D(position.X - Terminal.Size.X / 2, position.Y - Terminal.Size.Y / 2), Terminal.Size);
         }
 
         public void MoveViewBy(Vector2D distance)
         {
-            Viewport = new Rect(Viewport.Position + distance, Terminal.Size);
+            ViewPort = new Rect(ViewPort.Position + distance, Terminal.Size);
         }
 
         public bool TileCollideable(Vector2D position)
@@ -123,6 +115,17 @@ namespace Praedium.Engine
             }
 
             return false;
+        }
+
+        public GameObject GetObjectAt(Vector2D position)
+        {
+            foreach(var obj in entities)
+            {
+                if (obj.Position == position)
+                    return obj;
+            }
+
+            return null;
         }
 
         public double DeltaTime
@@ -139,6 +142,8 @@ namespace Praedium.Engine
             TimeSpan elapsedTime = currentTime - lastTime;
             lastTime = currentTime;
 
+            bool updated = false;
+
             if (elapsedTime > MaxElapsedTime)
             {
                 elapsedTime = MaxElapsedTime;
@@ -151,44 +156,43 @@ namespace Praedium.Engine
                 Update();
 
                 accumulatedTime -= TargetElapsedTime;
+                updated = true;
             }
 
-            Render();
+            if(updated)
+                Render();
         }
 
         public void HandleInput(KeyInfo info)
         {
             UI.ApplyKeyInfo(info);
+
+            if (info.Down)
+                OnKeyDown(info);
+            else
+                OnKeyUp(info);
         }
 
         public void AddGameObject(GameObject gameObject)
         {
             entities.Add(gameObject);
             gameObject.Game = this;
-
-            var renderers = gameObject.GetComponentsOfType(typeof(Renderer));
-
-            foreach (Renderer renderer in renderers)
-            {
-                renderables.Add(renderer);
-            }
-
             gameObject.Start();
         }
 
-        private void OnKeyDown()
+        private void OnKeyDown(KeyInfo info)
         {
             if (KeyDown != null)
             {
-                KeyDown(this, new KeyInfoEventArgs(CurrentKeyInfo));
+                KeyDown(this, new KeyInfoEventArgs(info));
             }
         }
 
-        private void OnKeyUp()
+        private void OnKeyUp(KeyInfo info)
         {
             if (KeyUp != null)
             {
-                KeyUp(this, new KeyInfoEventArgs(CurrentKeyInfo));
+                KeyUp(this, new KeyInfoEventArgs(info));
             }
         }
 
@@ -206,9 +210,9 @@ namespace Praedium.Engine
 
             Level.Render(Terminal);
 
-            foreach(var renderer in renderables)
+            foreach(var gameObject in entities)
             {
-                renderer.Render(Terminal);
+                gameObject.Render(Terminal);
             }
         }
     }

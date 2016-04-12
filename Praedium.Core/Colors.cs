@@ -25,6 +25,8 @@ namespace Praedium.Core
         public static TermColor Gray = TermColor.Parse("#9e9e9e");
         public static TermColor LightGray = TermColor.Parse("#dedede");
 
-        public static TermColor Field = TermColor.Parse("#9e8664");
+        public static TermColor Soil = TermColor.Parse("#9e8664");
+        public static TermColor TilledSoil = TermColor.Parse("#806640");
+        public static TermColor WateredSoil = TermColor.Parse("#4d3d26");
     }
 }

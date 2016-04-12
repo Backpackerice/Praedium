@@ -13,6 +13,7 @@ namespace Praedium.Core.GameObjects
 {
     [RequireComponent(typeof(PlayerMovementHandler))]
     [RequireComponent(typeof(CellRenderer))]
+    [RequireComponent(typeof(ToolHandler))]
     public class Player : GameObject
     {
         private CellRenderer renderer;
@@ -24,6 +25,22 @@ namespace Praedium.Core.GameObjects
             renderer = (CellRenderer)GetComponentOfType(typeof(CellRenderer));
 
             renderer.Character = new Character((int)Glyph.CharacterInversed, TermColor.White, TermColor.Black);
+
+            renderer.Position = Position;
+        }
+
+        public override Vector2D Position
+        {
+            get
+            {
+                return base.Position;
+            }
+            set
+            {
+                base.Position = value;
+                if(renderer != null)
+                    renderer.Position = value;
+            }
         }
     }
 }

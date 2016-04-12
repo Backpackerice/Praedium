@@ -13,8 +13,6 @@ namespace Praedium.Engine
     {
         public GameObject()
         {
-            Position = Vector2D.Zero;
-
             Components = new List<Component>();
 
             AttachComponents();
@@ -50,13 +48,14 @@ namespace Praedium.Engine
         }
 
         /// <summary>
-        /// When the game objects initialized, they can begin their custom setup by taking advantage of overriding this method
+        /// When the game objects get initialized, they can begin their custom setup by taking advantage of overriding this method
         /// </summary>
         protected abstract void OnStart();
 
         public void Start()
         {
             OnStart();
+
             foreach (var component in Components)
             {
                 component.Start();
@@ -71,13 +70,24 @@ namespace Praedium.Engine
             }
         }
 
+        public void Render(ITerminal terminal)
+        {
+            foreach (Component component in Components)
+            {
+                Renderer renderer = component as Renderer;
+
+                if (renderer != null)
+                    renderer.Render(terminal);
+            }
+        }
+
         public Game Game
         {
             get;
             set;
         }
 
-        public Vector2D Position
+        public virtual Vector2D Position
         {
             get;
             set;
