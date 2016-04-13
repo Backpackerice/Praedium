@@ -29,6 +29,7 @@ namespace Praedium.Engine.UI
         public void ApplyMouseInfo(MouseInfo info)
         {
             pressedMouseButtons[info.Button] = info.Down;
+            MousePosition = info.Position;
         }
 
         public void ApplyMousePosition(Vector2D position)

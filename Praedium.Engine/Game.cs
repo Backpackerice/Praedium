@@ -30,7 +30,11 @@ namespace Praedium.Engine
         public readonly TimeSpan MaxElapsedTime = TimeSpan.FromTicks(TimeSpan.TicksPerSecond / 10);
 
         public event EventHandler<KeyInfoEventArgs> KeyUp;
-        public event EventHandler<KeyInfoEventArgs> KeyDown;        
+        public event EventHandler<KeyInfoEventArgs> KeyDown;
+
+        public event EventHandler<MouseInfoEventArgs> MouseUp;
+        public event EventHandler<MouseInfoEventArgs> MouseDown;
+        public event EventHandler<MouseInfoEventArgs> MouseMove;
 
         // TODO: Might need to replace with better random number generator
         public Random RNG
@@ -163,14 +167,40 @@ namespace Praedium.Engine
                 Render();
         }
 
-        public void HandleInput(KeyInfo info)
+        public void HandleKeyboard(KeyInfo info)
         {
             UI.ApplyKeyInfo(info);
 
             if (info.Down)
+            {
                 OnKeyDown(info);
+            }
             else
+            {
                 OnKeyUp(info);
+            }
+        }
+
+        public void HandleMouse(MouseInfo info)
+        {
+            if(info.Type == MouseEventType.Move)
+            {
+                UI.ApplyMousePosition(info.Position);
+                OnMouseMove(info);
+            }
+            else
+            {
+                UI.ApplyMouseInfo(info);
+
+                if (info.Down)
+                {
+                    OnMouseDown(info);
+                }
+                else
+                {
+                    OnMouseUp(info);
+                }
+            }
         }
 
         public void AddGameObject(GameObject gameObject)
@@ -193,6 +223,30 @@ namespace Praedium.Engine
             if (KeyUp != null)
             {
                 KeyUp(this, new KeyInfoEventArgs(info));
+            }
+        }
+
+        private void OnMouseDown(MouseInfo info)
+        {
+            if(MouseDown != null)
+            {
+                MouseDown(this, new MouseInfoEventArgs(info));
+            }
+        }
+
+        private void OnMouseUp(MouseInfo info)
+        {
+            if (MouseUp != null)
+            {
+                MouseUp(this, new MouseInfoEventArgs(info));
+            }
+        }
+
+        private void OnMouseMove(MouseInfo info)
+        {
+            if (MouseUp != null)
+            {
+                MouseMove(this, new MouseInfoEventArgs(info));
             }
         }
 
