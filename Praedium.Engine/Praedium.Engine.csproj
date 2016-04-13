@@ -62,6 +62,7 @@
     <Compile Include="UI\KeyInfo.cs" />
     <Compile Include="UI\KeyInfoEventArgs.cs" />
     <Compile Include="UI\MouseButton.cs" />
+    <Compile Include="UI\MouseEventType.cs" />
     <Compile Include="UI\MouseInfo.cs" />
     <Compile Include="UI\MouseInfoEventArgs.cs" />
     <Compile Include="UI\UserInterface.cs" />

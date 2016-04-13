@@ -23,27 +23,38 @@ namespace Praedium.Core.Components
         protected override void OnStart()
         {
             Controller = (MouseController)GameObject;
+
+            Game.MouseDown += Game_MouseDown;
+            Game.MouseUp += Game_MouseUp;
+            Game.MouseMove += Game_MouseMove;
+        }
+
+        void Game_MouseMove(object sender, MouseInfoEventArgs e)
+        {
+            if(Controller.ProcessingSelection && lastPosition != e.MouseInfo.Position)
+            {
+                lastPosition = e.MouseInfo.Position;
+                Controller.ChangeSelection(lastPosition);
+            }
+        }
+
+        void Game_MouseUp(object sender, MouseInfoEventArgs e)
+        {
+            if (e.MouseInfo.Button == MouseButton.Left && Controller.ProcessingSelection)
+            {
+                Controller.EndSelection(e.MouseInfo.Position);
+            }
+        }
+
+        void Game_MouseDown(object sender, MouseInfoEventArgs e)
+        {
+            if (e.MouseInfo.Button == MouseButton.Left && !Controller.ProcessingSelection)
+            {
+                Controller.StartSelection(e.MouseInfo.Position);
+            }
         }
 
         public override void Update()
-        {
-            if(Game.UI.IsMouseButtonDown(MouseButton.Left))
-            {
-                if(!Controller.ProcessingSelection)
-                {
-                    Controller.StartSelection(Game.UI.MousePosition);
-                }
-                else if(lastPosition != Game.UI.MousePosition)
-                {
-                    lastPosition = Game.UI.MousePosition;
-                    Controller.ChangeSelection(Game.UI.MousePosition);
-                }
-            }
-            else
-            {
-                if (Controller.ProcessingSelection)
-                    Controller.EndSelection(Game.UI.MousePosition);
-            }
-        }
+        { }
     }
 }

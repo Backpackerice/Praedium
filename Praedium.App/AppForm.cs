@@ -65,8 +65,8 @@ namespace Praedium.App
             if(parser.Parse(out info))
             {
                 info.Down = false;
-                _game.UI.ApplyMouseInfo(info);
-                _game.UI.ApplyMousePosition(info.Position);
+                info.Type = MouseEventType.ButtonUp;
+                _game.HandleMouse(info);
             }
         }
 
@@ -79,8 +79,8 @@ namespace Praedium.App
             if (parser.Parse(out info))
             {
                 info.Down = true;
-                _game.UI.ApplyMouseInfo(info);
-                _game.UI.ApplyMousePosition(info.Position);
+                info.Type = MouseEventType.ButtonDown;
+                _game.HandleMouse(info);
             }
         }
 
@@ -92,7 +92,8 @@ namespace Praedium.App
 
             if (parser.Parse(out info))
             {
-                _game.UI.ApplyMousePosition(info.Position);
+                info.Type = MouseEventType.Move;
+                _game.HandleMouse(info);
             }
         }
 
@@ -170,7 +171,7 @@ namespace Praedium.App
             if (parser.Parse(out info))
             {
                 info.Down = false;
-                _game.HandleInput(info);
+                _game.HandleKeyboard(info);
             }
         }
 
@@ -183,7 +184,7 @@ namespace Praedium.App
             if (parser.Parse(out info))
             {
                 info.Down = true;
-                _game.HandleInput(info);
+                _game.HandleKeyboard(info);
             }
         }
 
