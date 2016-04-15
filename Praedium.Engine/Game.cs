@@ -110,6 +110,16 @@ namespace Praedium.Engine
             ViewPort = new Rect(ViewPort.Position + distance, Terminal.Size);
         }
 
+        public Vector2D ToViewportPosition(Vector2D worldPosition)
+        {
+            return worldPosition - ViewPortOffset;
+        }
+
+        public Vector2D ToWorldPosition(Vector2D viewportPosition)
+        {
+            return viewportPosition + ViewPortOffset;
+        }
+
         public bool TileCollideable(Vector2D position)
         {
             foreach (var layer in Level.Layers.Values)
@@ -130,6 +140,42 @@ namespace Praedium.Engine
             }
 
             return null;
+        }
+
+        public IEnumerable<GameObject> GetObjectsWithin(Rect rectangle)
+        {
+            foreach (var obj in entities)
+            {
+                if (rectangle.Contains(obj.Position))
+                    yield return obj;                
+            }
+        }
+
+        public IEnumerable<GameObject> GetObjectsWithin<T>(Rect rectangle)
+        {
+            foreach (var obj in entities)
+            {
+                if(obj is T && rectangle.Contains(obj.Position))
+                    yield return obj;
+            }
+        }
+
+        public IEnumerable<GameObject> GetObjectsByName(string name)
+        {
+            foreach(var obj in entities)
+            {
+                if (obj.Name == name)
+                    yield return obj;
+            }
+        }
+
+        public IEnumerable<GameObject> GetObjectsByName<T>(string name)
+        {
+            foreach (var obj in entities)
+            {
+                if (obj is T && obj.Name == name)
+                    yield return obj;
+            }
         }
 
         public double DeltaTime

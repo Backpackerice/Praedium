@@ -30,6 +30,8 @@ namespace Praedium.Core.Levels
         {
             TmxMap map = new TmxMap("Resources/farm.tmx");
 
+            Size = new Vector2D(map.Width, map.Height);
+
             TmxTileset tileset = map.Tilesets[0];
 
             foreach (var layer in map.Layers)
