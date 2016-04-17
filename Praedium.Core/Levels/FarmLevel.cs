@@ -68,6 +68,7 @@ namespace Praedium.Core.Levels
 
             AddGameObject(player);
             AddGameObject(new MouseController());
+            AddGameObject(new CameraController());
 
             Game.CenterViewTo(player.Position);
         }

@@ -17,6 +17,8 @@ namespace Praedium.Engine
 
         private Vector2D size;
         private Array2D<bool> movementMap;
+        private readonly double DIAGONAL_COST = Math.Sqrt(2);
+        private readonly int STRAIGHT_COST = 1;
 
         public Vector2D Size
         {
@@ -49,7 +51,7 @@ namespace Praedium.Engine
                 {
                     if(Game.ViewPort.Contains(tile.Position))
                     {
-                        terminal[tile.Position - Game.ViewPortOffset].Write(tile.Character);
+                        terminal[Game.ToViewportPosition(tile.Position)].Write(tile.Character);
                     }
                 }
             }
@@ -72,22 +74,22 @@ namespace Praedium.Engine
 
         public Path<Vector2D> FindPath(Vector2D start, Vector2D end)
         {
-            return Path<Vector2D>.FindPath(start, end, GetDistance, GetEstimateCost, GetNeighbours);
+            return Path<Vector2D>.FindPath(start, end, NeighbourDistance, Heuristic, GetNeighbours);
         }
 
-        public void Load()
+        private double NeighbourDistance(Vector2D a, Vector2D b)
         {
-            OnLoad();
+            if (a.X != b.X && a.Y != b.Y)
+                return DIAGONAL_COST;
+            else
+                return STRAIGHT_COST;
         }
 
-        public void Unload()
+        private double Heuristic(Vector2D a, Vector2D b)
         {
-            OnUnload();
-        }
-
-        private double GetDistance(Vector2D a, Vector2D b)
-        {
-            return (a - b).Length;
+            var dx = Math.Abs(a.X - b.X);
+            var dy = Math.Abs(a.Y - b.Y);
+            return STRAIGHT_COST * (dx + dy) + (DIAGONAL_COST - 2 * STRAIGHT_COST) * Math.Min(dx, dy);
         }
 
         private IEnumerable<Vector2D> GetNeighbours(Vector2D tile)
@@ -103,9 +105,14 @@ namespace Praedium.Engine
             }
         }
 
-        private double GetEstimateCost(Vector2D a, Vector2D b)
+        public void Load()
         {
-            return GetDistance(a, b);
+            OnLoad();
+        }
+
+        public void Unload()
+        {
+            OnUnload();
         }
 
         protected abstract void OnLoad();

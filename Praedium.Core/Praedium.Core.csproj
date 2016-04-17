@@ -49,8 +49,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Colors.cs" />
+    <Compile Include="Components\CameraMovementHandler.cs" />
     <Compile Include="Components\MouseSelectionHandler.cs" />
     <Compile Include="Components\ToolHandler.cs" />
+    <Compile Include="GameObjects\CameraController.cs" />
     <Compile Include="GameObjects\FieldTile.cs" />
     <Compile Include="GameObjects\MouseController.cs" />
     <Compile Include="GameObjects\Player.cs" />

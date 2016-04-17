@@ -13,7 +13,7 @@ namespace Praedium.Core.Components
 {
     public class PlayerMovementHandler : Component
     {
-        // Limit movement speed to 10 tiles per second
+        // Limit movement speed to 5 tiles per second
         private const double LAG = 0.2f;
 
         private double elaspedTime;
@@ -36,14 +36,18 @@ namespace Praedium.Core.Components
             if(player.Selected && e.MouseInfo.Button == MouseButton.Right)
             {
                 targetPosition = Game.ToWorldPosition(e.MouseInfo.Position);
+
                 var path = Game.Level.FindPath(player.Position, targetPosition);
+
                 if (path != null)
                 {
-                    player.MovementPath.Push(path.LastStep);
+                    player.MovementPath.Clear();
+
                     foreach (var step in path.PreviousSteps)
                     {
                         player.MovementPath.Push(step);
                     }
+
                     processingMovement = true;
                 }
             }
@@ -64,7 +68,7 @@ namespace Praedium.Core.Components
 
                 if (elaspedTime > LAG)
                 {
-                    elaspedTime = 0;
+                    elaspedTime -= LAG;
 
                     GameObject.Position = player.MovementPath.Pop();
                 }
