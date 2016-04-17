@@ -32,7 +32,7 @@ namespace Praedium.Engine.Components
             {
                 if (Game.ViewPort.Contains(GameObject.Position + Offset))
                 {
-                    terminal[Position + Offset - Game.ViewPortOffset].Write(Character);
+                    terminal[Game.ToViewportPosition(Position + Offset)].Write(Character);
                 }
             }
             else

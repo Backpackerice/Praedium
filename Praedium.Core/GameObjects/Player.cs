@@ -17,10 +17,43 @@ namespace Praedium.Core.GameObjects
     public class Player : GameObject
     {
         private CellRenderer renderer;
+        private bool selected;
+
+        public bool Selected
+        {
+            get
+            {
+                return selected;
+            }
+            set
+            {
+                selected = value;
+                if(renderer != null)
+                {
+                    if(value)
+                    {
+                        renderer.Character = new Character(renderer.Character.Code, Colors.LightBlue, renderer.Character.BackColor);
+                    }
+                    else
+                    {
+                        renderer.Character = new Character(renderer.Character.Code, TermColor.White, renderer.Character.BackColor);
+                    }
+                }
+
+            }
+        }
+
+        public Stack<Vector2D> MovementPath
+        {
+            get;
+            set;
+        }
 
         protected override void OnStart()
         {
             Name = "Player";
+
+            MovementPath = new Stack<Vector2D>();
 
             renderer = (CellRenderer)GetComponentOfType(typeof(CellRenderer));
 

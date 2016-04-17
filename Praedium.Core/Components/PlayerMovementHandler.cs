@@ -7,48 +7,70 @@ using System.Text;
 using System.Threading.Tasks;
 using Praedium.Engine.UI;
 using Praedium.Engine.Components;
+using Praedium.Core.GameObjects;
 
 namespace Praedium.Core.Components
 {
     public class PlayerMovementHandler : Component
     {
-        // Limit movement speed to 10 tiles per second
-        private const double LAG = 0.1f;
+        // Limit movement speed to 5 tiles per second
+        private const double LAG = 0.2f;
 
         private double elaspedTime;
 
+        private Player player;
+
+        private bool processingMovement = false;
+
+        private Vector2D targetPosition;
+
         protected override void OnStart()
-        { }
+        {
+            player = (Player)GameObject;
+
+            Game.MouseDown += Game_MouseDown;
+        }
+
+        void Game_MouseDown(object sender, MouseInfoEventArgs e)
+        {
+            if(player.Selected && e.MouseInfo.Button == MouseButton.Right)
+            {
+                targetPosition = Game.ToWorldPosition(e.MouseInfo.Position);
+
+                var path = Game.Level.FindPath(player.Position, targetPosition);
+
+                if (path != null)
+                {
+                    player.MovementPath.Clear();
+
+                    foreach (var step in path.PreviousSteps)
+                    {
+                        player.MovementPath.Push(step);
+                    }
+
+                    processingMovement = true;
+                }
+            }
+        }
 
         public override void Update()
         {
-            if(elaspedTime < LAG)
-                elaspedTime += Game.DeltaTime;
-
-            if(elaspedTime > LAG)
+            if(processingMovement)
             {
-                elaspedTime = 0;
-                Vector2D movement = Vector2D.Zero;
-
-                if(Game.UI.IsKeyDown(Key.A))
-                    movement += new Vector2D(-1, 0);
-
-                if(Game.UI.IsKeyDown(Key.D))
-                    movement += new Vector2D(1, 0);
-
-                if(Game.UI.IsKeyDown(Key.W))
-                    movement += new Vector2D(0, -1);
-
-                if(Game.UI.IsKeyDown(Key.S))
-                    movement += new Vector2D(0, 1);
-                
-                if(movement != Vector2D.Zero)
+                if (player.Position == targetPosition || player.MovementPath.Count == 0)
                 {
-                    if(!Game.TileCollideable(GameObject.Position + movement))
-                    {
-                        GameObject.Position += movement;
-                        Game.MoveViewBy(movement);
-                    }
+                    processingMovement = false;
+                    return;
+                }
+
+                if (elaspedTime < LAG)
+                    elaspedTime += Game.DeltaTime;
+
+                if (elaspedTime > LAG)
+                {
+                    elaspedTime -= LAG;
+
+                    GameObject.Position = player.MovementPath.Pop();
                 }
             }
         }

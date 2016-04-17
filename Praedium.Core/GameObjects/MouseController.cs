@@ -58,6 +58,21 @@ namespace Praedium.Core.GameObjects
             renderer.Size = Vector2D.Zero;
 
             ProcessingSelection = false;
+
+            var position = Game.ToWorldPosition(new Vector2D(Math.Min(startPosition.X, endPosition.X), Math.Min(startPosition.Y, endPosition.Y)));
+            var size = new Vector2D(Math.Abs(startPosition.X - endPosition.X) + 1, Math.Abs(startPosition.Y - endPosition.Y) + 1);
+
+            foreach(var obj in Game.GetObjectsByName<Player>("Player"))
+            {
+                (obj as Player).Selected = false;
+            }
+
+            var characters = Game.GetObjectsWithin<Player>(new Rect(position, size));
+
+            foreach (var character in characters)
+            {
+                (character as Player).Selected = true;
+            }
         }
     }
 }

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Bramble.Core;
+using Malison.Core;
 
 namespace Praedium.Engine
 {
@@ -13,6 +14,25 @@ namespace Praedium.Engine
     public abstract class Level
     {
         public SortedList<int, TileLayer> Layers = new SortedList<int,TileLayer>();
+
+        private Vector2D size;
+        private Array2D<bool> movementMap;
+        private readonly double DIAGONAL_COST = Math.Sqrt(2);
+        private readonly int STRAIGHT_COST = 1;
+
+        public Vector2D Size
+        {
+            get
+            {
+                return size;
+            }
+            protected set
+            {
+                movementMap = new Array2D<bool>(value);
+                size = value;
+            }
+
+        }
 
         public Game Game
         {
@@ -31,7 +51,7 @@ namespace Praedium.Engine
                 {
                     if(Game.ViewPort.Contains(tile.Position))
                     {
-                        terminal[tile.Position - Game.ViewPortOffset].Write(tile.Character);
+                        terminal[Game.ToViewportPosition(tile.Position)].Write(tile.Character);
                     }
                 }
             }
@@ -45,6 +65,44 @@ namespace Praedium.Engine
         public void AddTileLayer(TileLayer layer)
         {
             Layers.Add(layer.ZIndex, layer);
+            foreach (var tile in layer.Tiles)
+            {
+                if (tile.Collideable)
+                    movementMap[tile.Position.X, tile.Position.Y] = true;
+            }
+        }
+
+        public Path<Vector2D> FindPath(Vector2D start, Vector2D end)
+        {
+            return Path<Vector2D>.FindPath(start, end, NeighbourDistance, Heuristic, GetNeighbours);
+        }
+
+        private double NeighbourDistance(Vector2D a, Vector2D b)
+        {
+            if (a.X != b.X && a.Y != b.Y)
+                return DIAGONAL_COST;
+            else
+                return STRAIGHT_COST;
+        }
+
+        private double Heuristic(Vector2D a, Vector2D b)
+        {
+            var dx = Math.Abs(a.X - b.X);
+            var dy = Math.Abs(a.Y - b.Y);
+            return STRAIGHT_COST * (dx + dy) + (DIAGONAL_COST - 2 * STRAIGHT_COST) * Math.Min(dx, dy);
+        }
+
+        private IEnumerable<Vector2D> GetNeighbours(Vector2D tile)
+        {
+            var levelRect = new Rect(0, 0, Size);
+
+            var neighbourRect = levelRect.Intersect(new Rect(tile - new Vector2D(1, 1), new Vector2D(3, 3)));
+
+            foreach(var vector in neighbourRect)
+            {
+                if (vector != tile && !movementMap[vector])
+                    yield return vector;
+            }
         }
 
         public void Load()
