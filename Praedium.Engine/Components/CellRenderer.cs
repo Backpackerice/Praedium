@@ -28,6 +28,9 @@ namespace Praedium.Engine.Components
 
         public override void Render(ITerminal terminal)
         {
+            if (!Enabled)
+                return;
+
             if(Units == Components.Units.World)
             {
                 if (Game.ViewPort.Contains(GameObject.Position + Offset))

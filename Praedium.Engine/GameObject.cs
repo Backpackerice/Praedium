@@ -41,6 +41,8 @@ namespace Praedium.Engine
             }
         }
 
+        protected virtual void OnDestroy() { }
+
         public string Name
         {
             get;
@@ -106,9 +108,25 @@ namespace Praedium.Engine
             return Components.Find(x => x.GetType().IsSubclassOf(type) || x.GetType() == type);
         }
 
-        public IList<Component> GetComponentsOfType(Type type)
+        public Component GetComponent<T>()
         {
-            return Components.FindAll(x => x.GetType().IsSubclassOf(type) || x.GetType() == type).ToList();
+            return GetComponentOfType(typeof(T));
+        }
+
+        public IEnumerable<Component> GetComponentsOfType(Type type)
+        {
+            return Components.FindAll(x => x.GetType().IsSubclassOf(type) || x.GetType() == type);
+        }
+
+        public IEnumerable<Component> GetComponents<T>()
+        {
+            return GetComponentsOfType(typeof(T));
+        }
+
+        public void Destroy()
+        {
+            OnDestroy();
+            Game.Destroy(this);
         }
     }
 }

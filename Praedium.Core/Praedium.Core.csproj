@@ -55,7 +55,8 @@
     <Compile Include="GameObjects\CameraController.cs" />
     <Compile Include="GameObjects\FieldTile.cs" />
     <Compile Include="GameObjects\MouseController.cs" />
-    <Compile Include="GameObjects\Player.cs" />
+    <Compile Include="GameObjects\MouseSelection.cs" />
+    <Compile Include="GameObjects\Farmer.cs" />
     <Compile Include="Components\PlayerMovementHandler.cs" />
     <Compile Include="Glyph.cs" />
     <Compile Include="Levels\FarmLevel.cs" />

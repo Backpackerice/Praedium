@@ -18,7 +18,7 @@ namespace Praedium.Core.Components
 
         private double elaspedTime;
 
-        private Player player;
+        private Farmer player;
 
         private bool processingMovement = false;
 
@@ -26,7 +26,7 @@ namespace Praedium.Core.Components
 
         protected override void OnStart()
         {
-            player = (Player)GameObject;
+            player = (Farmer)GameObject;
 
             Game.MouseDown += Game_MouseDown;
         }

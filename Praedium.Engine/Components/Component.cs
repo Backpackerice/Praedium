@@ -8,8 +8,15 @@ namespace Praedium.Engine.Components
 {
     public abstract class Component
     {
+        public bool Enabled
+        {
+            get;
+            set;
+        }
+
         public Component()
         {
+            Enabled = true;
         }
 
         public void AttachTo(GameObject obj)

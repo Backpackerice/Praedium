@@ -191,9 +191,7 @@ namespace Praedium.Engine
             TimeSpan currentTime = stopWatch.Elapsed;
             TimeSpan elapsedTime = currentTime - lastTime;
             lastTime = currentTime;
-
-            bool updated = false;
-
+            
             if (elapsedTime > MaxElapsedTime)
             {
                 elapsedTime = MaxElapsedTime;
@@ -201,16 +199,12 @@ namespace Praedium.Engine
 
             accumulatedTime += elapsedTime;
 
-            while (accumulatedTime >= TargetElapsedTime)
-            {
-                Update();
 
-                accumulatedTime -= TargetElapsedTime;
-                updated = true;
-            }
+            Task updateTask = Task.Factory.StartNew(Update);
 
-            if(updated)
-                Render();
+            Task.WaitAll(updateTask);
+
+            Render();
         }
 
         public void HandleKeyboard(KeyInfo info)
@@ -256,6 +250,20 @@ namespace Praedium.Engine
             gameObject.Start();
         }
 
+        public GameObject Instantiate<T>()
+            where T : GameObject
+        {
+            var obj = Activator.CreateInstance(typeof(T)) as GameObject;
+            AddGameObject(obj);
+
+            return obj;
+        }
+
+        public void Destroy(GameObject obj)
+        {
+            entities.Remove(obj);
+        }
+
         private void OnKeyDown(KeyInfo info)
         {
             if (KeyDown != null)
@@ -298,10 +306,15 @@ namespace Praedium.Engine
 
         private void Update()
         {
+            accumulatedTime -= TargetElapsedTime;
+
             foreach (var gameObject in entities)
             {
                 gameObject.Update();
             }
+
+            if (accumulatedTime >= TargetElapsedTime)
+                Update();
         }
 
         private void Render()

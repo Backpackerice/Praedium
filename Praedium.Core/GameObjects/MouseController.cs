@@ -11,7 +11,6 @@ using System.Threading.Tasks;
 namespace Praedium.Core.GameObjects
 {
     [RequireComponent(typeof(MouseSelectionHandler))]
-    [RequireComponent(typeof(BoxRenderer))]
     public class MouseController : GameObject
     {
         public bool ProcessingSelection
@@ -22,18 +21,12 @@ namespace Praedium.Core.GameObjects
 
         private Vector2D startPosition;
         private Vector2D endPosition;
-
-        private BoxRenderer renderer;
+        private MouseSelection selection;
 
         protected override void OnStart()
         {
             startPosition = endPosition = Vector2D.Zero;
             ProcessingSelection = false;
-
-            renderer = GetComponentOfType(typeof(BoxRenderer)) as BoxRenderer;
-
-            renderer.Size = Vector2D.Zero;
-            renderer.Units = Units.Viewport;
         }
 
         public void StartSelection(Vector2D startPos)
@@ -42,37 +35,33 @@ namespace Praedium.Core.GameObjects
             endPosition = startPos;
                         
             ProcessingSelection = true;
+            if (selection != null)
+                selection.Destroy();
+
+            selection = Game.Instantiate<MouseSelection>() as MouseSelection;
         }
 
         public void ChangeSelection(Vector2D targetPos)
         {
             endPosition = targetPos;
 
-            renderer.Position = new Vector2D(Math.Min(startPosition.X, endPosition.X), Math.Min(startPosition.Y, endPosition.Y));
-            renderer.Size = new Vector2D(Math.Abs(startPosition.X - endPosition.X) + 1, Math.Abs(startPosition.Y - endPosition.Y) + 1);
+            var pos = new Vector2D(Math.Min(startPosition.X, endPosition.X), Math.Min(startPosition.Y, endPosition.Y));
+            var size = new Vector2D(Math.Abs(startPosition.X - endPosition.X) + 1, Math.Abs(startPosition.Y - endPosition.Y) + 1);
+            selection.Rectangle = new Rect(pos, size);
         }
 
         public void EndSelection(Vector2D endPos)
         {
             endPosition = endPos;
-            renderer.Size = Vector2D.Zero;
 
             ProcessingSelection = false;
 
-            var position = Game.ToWorldPosition(new Vector2D(Math.Min(startPosition.X, endPosition.X), Math.Min(startPosition.Y, endPosition.Y)));
+            var pos = new Vector2D(Math.Min(startPosition.X, endPosition.X), Math.Min(startPosition.Y, endPosition.Y));
             var size = new Vector2D(Math.Abs(startPosition.X - endPosition.X) + 1, Math.Abs(startPosition.Y - endPosition.Y) + 1);
 
-            foreach(var obj in Game.GetObjectsByName<Player>("Player"))
-            {
-                (obj as Player).Selected = false;
-            }
+            selection.Rectangle = new Rect(pos, size);
 
-            var characters = Game.GetObjectsWithin<Player>(new Rect(position, size));
-
-            foreach (var character in characters)
-            {
-                (character as Player).Selected = true;
-            }
+            selection.Commit();
         }
     }
 }

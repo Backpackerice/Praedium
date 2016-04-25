@@ -24,6 +24,9 @@ namespace Praedium.Engine.Components
 
         public override void Render(Malison.Core.ITerminal terminal)
         {
+            if (!Enabled)
+                return;
+
             foreach (var node in Nodes)
             {
                 if (Units == Components.Units.Viewport)
