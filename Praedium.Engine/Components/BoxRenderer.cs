@@ -42,9 +42,6 @@ namespace Praedium.Engine.Components
 
         public override void Render(Malison.Core.ITerminal terminal)
         {
-            if (!Enabled)
-                return;
-
             if (Size.Length == 0)
                 return;
 

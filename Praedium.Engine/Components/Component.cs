@@ -61,7 +61,8 @@ namespace Praedium.Engine.Components
         /// <summary>
         /// When the  components are initialized, they can begin their custom setup by taking advantage of overriding this method
         /// </summary>
-        protected abstract void OnStart();
+        protected virtual void OnStart()
+        { }
 
         public void Start()
         {

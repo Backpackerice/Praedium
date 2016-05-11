@@ -53,7 +53,7 @@ namespace Praedium.Core.GameObjects
 
         public void Commit()
         {
-            SelectedObjects = Game.GetObjectsWithin<Farmer>(new Rect(Game.ToWorldPosition(Rectangle.Position), Rectangle.Size)).ToList();
+            SelectedObjects = Game.GetObjectsWithin(new Rect(Game.ToWorldPosition(Rectangle.Position), Rectangle.Size)).OfType<Farmer>().ToList<GameObject>();
 
             foreach (var item in SelectedObjects)
             {
