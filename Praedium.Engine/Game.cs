@@ -8,6 +8,9 @@ using Malison.Core;
 using Praedium.Engine.UI;
 using Bramble.Core;
 using Praedium.Engine.Components;
+using SFML.Window;
+using SFML.Graphics;
+using Malison.SFML;
 
 namespace Praedium.Engine
 {
@@ -15,19 +18,24 @@ namespace Praedium.Engine
     {
         private List<GameObject> entities;
 
-        private TimeSpan accumulatedTime;
-        private TimeSpan lastTime;
-        private Stopwatch stopWatch;
         private ITerminal terminal;
+
+        private RenderWindow Window;
+
+        private Stopwatch watch;
+        private TimeSpan lastTime;
+
+        public double DeltaTime
+        {
+            get;
+            private set;
+        }
 
         public UserInterface UI
         {
             get;
             private set;
         }
-
-        public readonly TimeSpan TargetElapsedTime = TimeSpan.FromTicks(TimeSpan.TicksPerSecond / 60);
-        public readonly TimeSpan MaxElapsedTime = TimeSpan.FromTicks(TimeSpan.TicksPerSecond / 10);
 
         public event EventHandler<KeyInfoEventArgs> KeyUp;
         public event EventHandler<KeyInfoEventArgs> KeyDown;
@@ -45,17 +53,8 @@ namespace Praedium.Engine
 
         public ITerminal Terminal
         {
-            get
-            {
-                return terminal;
-            }
-            set
-            {
-                // If previous terminal instance existed, resize the viewport to scale nicely within the window
-                if(terminal != null)
-                    ViewPort = new Rect(ViewPortOffset + (terminal.Size / 2 - value.Size / 2), value.Size);
-                terminal = value;
-            }
+            get;
+            set;
         }
 
         public Vector2D ViewPortOffset
@@ -78,13 +77,85 @@ namespace Praedium.Engine
             private set;
         }
 
-        public Game(ITerminal terminal)
+        public GlyphSheet GlyphSheet
         {
-            stopWatch = Stopwatch.StartNew();
-            Terminal = terminal;
+            get;
+            set;
+        }
+
+        public Game(ITerminal terminal, GlyphSheet defaultSheet, RenderWindow window)
+        {
             RNG = new Random();
             UI = new UserInterface();
             entities = new List<GameObject>();
+            watch = Stopwatch.StartNew();
+
+            Terminal = terminal;
+            Window = window;
+            GlyphSheet = defaultSheet;
+
+            window.KeyPressed += window_KeyPressed;
+            window.KeyReleased += window_KeyReleased;
+
+            window.MouseButtonPressed += window_MouseButtonPressed;
+            window.MouseButtonReleased += window_MouseButtonReleased;
+
+            window.MouseMoved += window_MouseMoved;
+            window.MouseEntered += window_MouseEntered;
+            window.MouseLeft += window_MouseLeft;
+            window.MouseWheelMoved += window_MouseWheelMoved;
+            window.Closed += window_Closed;
+            window.Resized += window_Resized;
+        }
+
+        void window_Resized(object sender, SizeEventArgs e)
+        {
+
+        }
+
+        void window_Closed(object sender, EventArgs e)
+        {
+
+        }
+
+        void window_MouseLeft(object sender, EventArgs e)
+        {
+
+        }
+
+        void window_MouseEntered(object sender, EventArgs e)
+        {
+
+        }
+
+        void window_MouseWheelMoved(object sender, MouseWheelEventArgs e)
+        {
+
+        }
+
+        void window_MouseMoved(object sender, MouseMoveEventArgs e)
+        {
+
+        }
+
+        void window_MouseButtonReleased(object sender, MouseButtonEventArgs e)
+        {
+
+        }
+
+        void window_MouseButtonPressed(object sender, MouseButtonEventArgs e)
+        {
+
+        }
+
+        void window_KeyReleased(object sender, KeyEventArgs e)
+        {
+
+        }
+
+        void window_KeyPressed(object sender, KeyEventArgs e)
+        {
+
         }
 
         public void LoadLevel(Level targetLevel)
@@ -178,33 +249,25 @@ namespace Praedium.Engine
             }
         }
 
-        public double DeltaTime
+        public void Run()
         {
-            get
+            while (Window.IsOpen())
             {
-                return TargetElapsedTime.TotalSeconds;
+                TimeSpan currentTime = watch.Elapsed;
+                TimeSpan elapsedTime = currentTime - lastTime;
+
+                lastTime = currentTime;
+
+                DeltaTime = elapsedTime.TotalSeconds;
+
+                Window.Clear(Color.Black);
+                Window.DispatchEvents();
+
+                Update();
+                Render();
+
+                Window.Display();
             }
-        }
-
-        public void Tick()
-        {
-            TimeSpan currentTime = stopWatch.Elapsed;
-            TimeSpan elapsedTime = currentTime - lastTime;
-            lastTime = currentTime;
-            
-            if (elapsedTime > MaxElapsedTime)
-            {
-                elapsedTime = MaxElapsedTime;
-            }
-
-            accumulatedTime += elapsedTime;
-
-
-            Task updateTask = Task.Factory.StartNew(Update);
-
-            Task.WaitAll(updateTask);
-
-            Render();
         }
 
         public void HandleKeyboard(KeyInfo info)
@@ -306,15 +369,10 @@ namespace Praedium.Engine
 
         private void Update()
         {
-            accumulatedTime -= TargetElapsedTime;
-
             foreach (var gameObject in entities)
             {
                 gameObject.Update();
             }
-
-            if (accumulatedTime >= TargetElapsedTime)
-                Update();
         }
 
         private void Render()
@@ -326,6 +384,15 @@ namespace Praedium.Engine
             foreach(var gameObject in entities)
             {
                 gameObject.Render(Terminal);
+            } 
+            
+            //actual drawing
+            for (int i = 0; i < Terminal.Size.X; i++)
+            {
+                for (int j = 0; j < Terminal.Size.Y; j++)
+                {
+                    GlyphSheet.Draw(Window, i, j, Terminal.Get(i, j));
+                }
             }
         }
     }
