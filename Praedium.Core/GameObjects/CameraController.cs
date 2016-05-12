@@ -17,7 +17,7 @@ namespace Praedium.Core.GameObjects
         {
             handler = GetComponent<CameraMovementHandler>() as CameraMovementHandler;
 
-            handler.LAG = 0.05f;
+            handler.LAG = 0.001f;
         }
     }
 }

@@ -78,7 +78,7 @@ namespace Praedium.Engine
             {
                 Renderer renderer = component as Renderer;
 
-                if (renderer != null)
+                if (renderer != null && renderer.Enabled)
                     renderer.Render(terminal);
             }
         }

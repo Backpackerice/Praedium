@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using Praedium.Engine.UI;
 using Praedium.Engine.Components;
 using Praedium.Core.GameObjects;
+using SFML.Window;
 
 namespace Praedium.Core.Components
 {
@@ -28,14 +29,14 @@ namespace Praedium.Core.Components
         {
             player = (Farmer)GameObject;
 
-            Game.MouseDown += Game_MouseDown;
+            Game.Window.MouseButtonPressed += Window_MouseButtonPressed;
         }
 
-        void Game_MouseDown(object sender, MouseInfoEventArgs e)
+        void Window_MouseButtonPressed(object sender, MouseButtonEventArgs e)
         {
-            if(player.Selected && e.MouseInfo.Button == MouseButton.Right)
+            if(player.Selected && e.Button == Mouse.Button.Right)
             {
-                targetPosition = Game.ToWorldPosition(e.MouseInfo.Position);
+                targetPosition = Game.ToWorldPosition(Game.WindowPositionToViewportPosition(new Vector2D(e.X, e.Y)));
 
                 var path = Game.Level.FindPath(player.Position, targetPosition);
 

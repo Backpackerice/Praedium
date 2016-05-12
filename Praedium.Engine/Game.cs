@@ -20,7 +20,11 @@ namespace Praedium.Engine
 
         private ITerminal terminal;
 
-        private RenderWindow Window;
+        public RenderWindow Window
+        {
+            get;
+            private set;
+        }
 
         private Stopwatch watch;
         private TimeSpan lastTime;
@@ -36,13 +40,6 @@ namespace Praedium.Engine
             get;
             private set;
         }
-
-        public event EventHandler<KeyInfoEventArgs> KeyUp;
-        public event EventHandler<KeyInfoEventArgs> KeyDown;
-
-        public event EventHandler<MouseInfoEventArgs> MouseUp;
-        public event EventHandler<MouseInfoEventArgs> MouseDown;
-        public event EventHandler<MouseInfoEventArgs> MouseMove;
 
         // TODO: Might need to replace with better random number generator
         public Random RNG
@@ -110,12 +107,12 @@ namespace Praedium.Engine
 
         void window_Resized(object sender, SizeEventArgs e)
         {
-
+            
         }
 
         void window_Closed(object sender, EventArgs e)
         {
-
+            Window.Close();
         }
 
         void window_MouseLeft(object sender, EventArgs e)
@@ -135,27 +132,27 @@ namespace Praedium.Engine
 
         void window_MouseMoved(object sender, MouseMoveEventArgs e)
         {
-
+            UI.ApplyMouseMove(e);
         }
 
         void window_MouseButtonReleased(object sender, MouseButtonEventArgs e)
         {
-
+            UI.ApplyMouseUp(e);
         }
 
         void window_MouseButtonPressed(object sender, MouseButtonEventArgs e)
         {
-
+            UI.ApplyMouseDown(e);
         }
 
         void window_KeyReleased(object sender, KeyEventArgs e)
         {
-
+            UI.ApplyKeyUp(e);
         }
 
         void window_KeyPressed(object sender, KeyEventArgs e)
         {
-
+            UI.ApplyKeyDown(e);
         }
 
         public void LoadLevel(Level targetLevel)
@@ -189,6 +186,11 @@ namespace Praedium.Engine
         public Vector2D ToWorldPosition(Vector2D viewportPosition)
         {
             return viewportPosition + ViewPortOffset;
+        }
+
+        public Vector2D WindowPositionToViewportPosition(Vector2D windowPosition)
+        {
+            return new Vector2D(windowPosition.X / GlyphSheet.Width, windowPosition.Y / GlyphSheet.Height);
         }
 
         public bool TileCollideable(Vector2D position)
@@ -270,42 +272,6 @@ namespace Praedium.Engine
             }
         }
 
-        public void HandleKeyboard(KeyInfo info)
-        {
-            UI.ApplyKeyInfo(info);
-
-            if (info.Down)
-            {
-                OnKeyDown(info);
-            }
-            else
-            {
-                OnKeyUp(info);
-            }
-        }
-
-        public void HandleMouse(MouseInfo info)
-        {
-            if(info.Type == MouseEventType.Move)
-            {
-                UI.ApplyMousePosition(info.Position);
-                OnMouseMove(info);
-            }
-            else
-            {
-                UI.ApplyMouseInfo(info);
-
-                if (info.Down)
-                {
-                    OnMouseDown(info);
-                }
-                else
-                {
-                    OnMouseUp(info);
-                }
-            }
-        }
-
         public void AddGameObject(GameObject gameObject)
         {
             entities.Add(gameObject);
@@ -325,46 +291,6 @@ namespace Praedium.Engine
         public void Destroy(GameObject obj)
         {
             entities.Remove(obj);
-        }
-
-        private void OnKeyDown(KeyInfo info)
-        {
-            if (KeyDown != null)
-            {
-                KeyDown(this, new KeyInfoEventArgs(info));
-            }
-        }
-
-        private void OnKeyUp(KeyInfo info)
-        {
-            if (KeyUp != null)
-            {
-                KeyUp(this, new KeyInfoEventArgs(info));
-            }
-        }
-
-        private void OnMouseDown(MouseInfo info)
-        {
-            if(MouseDown != null)
-            {
-                MouseDown(this, new MouseInfoEventArgs(info));
-            }
-        }
-
-        private void OnMouseUp(MouseInfo info)
-        {
-            if (MouseUp != null)
-            {
-                MouseUp(this, new MouseInfoEventArgs(info));
-            }
-        }
-
-        private void OnMouseMove(MouseInfo info)
-        {
-            if (MouseUp != null)
-            {
-                MouseMove(this, new MouseInfoEventArgs(info));
-            }
         }
 
         private void Update()
