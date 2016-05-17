@@ -1,5 +1,6 @@
 ﻿using Bramble.Core;
 using Malison.Core;
+using SFML.Graphics;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,17 +23,20 @@ namespace Praedium.Engine.Components
             set;
         }
 
-        public override void Render(Malison.Core.ITerminal terminal)
+        public override void Render()
         {
             foreach (var node in Nodes)
             {
                 if (Units == Components.Units.Viewport)
                 {
-                    terminal[node].Write(Character);
+                    GlyphSheet.Draw(Window, node.X + Offset.X, node.Y + Offset.Y, Character);
                 }
                 else
                 {
-                    terminal[node - Game.ViewPortOffset].Write(Character);
+                    if(Game.ViewPort.Contains(node + Offset))
+                    {
+                        GlyphSheet.Draw(Window, node.X + Offset.X - Game.ViewPortOffset.X, node.Y + Offset.Y - Game.ViewPortOffset.Y, Character);
+                    }
                 }
             }
         }

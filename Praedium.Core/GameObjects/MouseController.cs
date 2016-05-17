@@ -39,6 +39,7 @@ namespace Praedium.Core.GameObjects
                 selection.Destroy();
 
             selection = Game.Instantiate<MouseSelection>() as MouseSelection;
+            ChangeSelection(startPos);
         }
 
         public void ChangeSelection(Vector2D targetPos)

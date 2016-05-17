@@ -18,8 +18,6 @@ namespace Praedium.Engine
     {
         private List<GameObject> entities;
 
-        private ITerminal terminal;
-
         public RenderWindow Window
         {
             get;
@@ -48,12 +46,6 @@ namespace Praedium.Engine
             private set;
         }
 
-        public ITerminal Terminal
-        {
-            get;
-            set;
-        }
-
         public Vector2D ViewPortOffset
         {
             get
@@ -80,14 +72,13 @@ namespace Praedium.Engine
             set;
         }
 
-        public Game(ITerminal terminal, GlyphSheet defaultSheet, RenderWindow window)
+        public Game(GlyphSheet defaultSheet, RenderWindow window)
         {
             RNG = new Random();
             UI = new UserInterface();
             entities = new List<GameObject>();
             watch = Stopwatch.StartNew();
 
-            Terminal = terminal;
             Window = window;
             GlyphSheet = defaultSheet;
 
@@ -170,12 +161,12 @@ namespace Praedium.Engine
 
         public void CenterViewTo(Vector2D position)
         {
-            ViewPort = new Rect(new Vector2D(position.X - Terminal.Size.X / 2, position.Y - Terminal.Size.Y / 2), Terminal.Size);
+            ViewPort = new Rect(new Vector2D(position.X - (int)Window.Size.X / GlyphSheet.Width / 2, position.Y - (int)Window.Size.Y / GlyphSheet.Height / 2), new Vector2D((int)Window.Size.X / GlyphSheet.Width, (int)Window.Size.Y / GlyphSheet.Height));
         }
 
         public void MoveViewBy(Vector2D distance)
         {
-            ViewPort = new Rect(ViewPort.Position + distance, Terminal.Size);
+            ViewPort = new Rect(ViewPort.Position + distance, new Vector2D((int)Window.Size.X / GlyphSheet.Width, (int)Window.Size.Y / GlyphSheet.Height));
         }
 
         public Vector2D ToViewportPosition(Vector2D worldPosition)
@@ -264,7 +255,7 @@ namespace Praedium.Engine
 
                 Window.Clear(Color.Black);
                 Window.DispatchEvents();
-
+                 
                 Update();
                 Render();
 
@@ -303,22 +294,11 @@ namespace Praedium.Engine
 
         private void Render()
         {
-            Terminal.Clear();
-
-            Level.Render(Terminal);
+            Level.Render();
 
             foreach(var gameObject in entities)
             {
-                gameObject.Render(Terminal);
-            } 
-            
-            //actual drawing
-            for (int i = 0; i < Terminal.Size.X; i++)
-            {
-                for (int j = 0; j < Terminal.Size.Y; j++)
-                {
-                    GlyphSheet.Draw(Window, i, j, Terminal.Get(i, j));
-                }
+                gameObject.Render();
             }
         }
     }

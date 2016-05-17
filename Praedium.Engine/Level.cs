@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Bramble.Core;
 using Malison.Core;
+using SFML.Graphics;
 
 namespace Praedium.Engine
 {
@@ -43,7 +44,7 @@ namespace Praedium.Engine
         /// <summary>
         /// Rendering a level means rendering all tiles from all tilemaps
         /// </summary>
-        public void Render(Malison.Core.ITerminal terminal)
+        public void Render()
         {
             foreach (var layer in Layers.Values)
             {
@@ -51,7 +52,7 @@ namespace Praedium.Engine
                 {
                     if(Game.ViewPort.Contains(tile.Position))
                     {
-                        terminal[Game.ToViewportPosition(tile.Position)].Write(tile.Character);
+                        Game.GlyphSheet.Draw(Game.Window, tile.Position.X - Game.ViewPortOffset.X, tile.Position.Y - Game.ViewPortOffset.Y, tile.Character);
                     }
                 }
             }

@@ -25,11 +25,11 @@ namespace Praedium.App
             var videoMode = new VideoMode(width * 16, height * 16);
             var sheetTexture = new Texture(@"Resources/cp437_16x16.png");
             var sheet = new GlyphSheet(sheetTexture, 16, 16);
-            var terminal = new Terminal((int)width, (int)height, Encoding.GetEncoding(437));
+            //var terminal = new Terminal((int)width, (int)height, Encoding.GetEncoding(437));
             var window = new RenderWindow(videoMode, "Praedium");
             window.SetFramerateLimit(60);
 
-            Game g = new Game(terminal, sheet, window);
+            Game g = new Game(sheet, window);
 
             g.LoadLevel(new FarmLevel());
 

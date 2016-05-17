@@ -9,10 +9,10 @@ using System.Threading.Tasks;
 
 namespace Praedium.Core.GameObjects
 {
-    [RequireComponent(typeof(BoxRenderer))]
+    [RequireComponent(typeof(RectRenderer))]
     public class MouseSelection : GameObject
     {
-        private BoxRenderer renderer;
+        private RectRenderer renderer;
         private Rect rectangle;
 
         public Rect Rectangle
@@ -42,8 +42,9 @@ namespace Praedium.Core.GameObjects
         {
             Rectangle = new Rect();
             SelectedObjects = new List<GameObject>();
-            renderer = GetComponent<BoxRenderer>() as BoxRenderer;
+            renderer = GetComponent<RectRenderer>() as RectRenderer;
             renderer.Units = Units.Viewport;
+            renderer.Foreground = new Malison.Core.TermColor(0, 0, 255, 100);
 
             foreach (var item in Game.GetObjectsByName("Player"))
             {

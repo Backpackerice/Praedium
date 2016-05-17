@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Bramble.Core;
 using Malison.Core;
 using Praedium.Engine.Components;
+using SFML.Graphics;
 
 namespace Praedium.Engine
 {
@@ -53,7 +54,7 @@ namespace Praedium.Engine
         /// When the game objects get initialized, they can begin their custom setup by taking advantage of overriding this method
         /// </summary>
         protected abstract void OnStart();
-
+        
         public void Start()
         {
             OnStart();
@@ -72,14 +73,11 @@ namespace Praedium.Engine
             }
         }
 
-        public void Render(ITerminal terminal)
+        public void Render()
         {
-            foreach (Component component in Components)
+            foreach (Renderer component in Components.OfType<Renderer>().Where(x => x.Enabled))
             {
-                Renderer renderer = component as Renderer;
-
-                if (renderer != null && renderer.Enabled)
-                    renderer.Render(terminal);
+                component.Render();
             }
         }
 

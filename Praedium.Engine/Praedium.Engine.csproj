@@ -57,12 +57,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Components\BoxRenderer.cs" />
+    <Compile Include="Components\RectRenderer.cs" />
     <Compile Include="Components\CellRenderer.cs" />
     <Compile Include="Components\PathRenderer.cs" />
     <Compile Include="Components\Renderer.cs" />
     <Compile Include="Components\RequireComponent.cs" />
     <Compile Include="Components\Component.cs" />
+    <Compile Include="Components\TerminalRenderer.cs" />
     <Compile Include="Game.cs" />
     <Compile Include="GameObject.cs" />
     <Compile Include="Level.cs" />

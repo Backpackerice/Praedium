@@ -1,5 +1,6 @@
 ﻿using Bramble.Core;
-using Malison.Core;
+using Malison.SFML;
+using SFML.Graphics;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,6 +29,22 @@ namespace Praedium.Engine.Components
             set;
         }
 
-        public abstract void Render(ITerminal terminal);
+        public RenderWindow Window
+        {
+            get
+            {
+                return Game.Window;
+            }
+        }
+
+        public GlyphSheet GlyphSheet
+        {
+            get
+            {
+                return Game.GlyphSheet;
+            }
+        }
+
+        public abstract void Render();
     }
 }
