@@ -8,6 +8,9 @@ using Malison.Core;
 using Praedium.Engine.UI;
 using Bramble.Core;
 using Praedium.Engine.Components;
+using SFML.Window;
+using SFML.Graphics;
+using Malison.SFML;
 
 namespace Praedium.Engine
 {
@@ -15,10 +18,20 @@ namespace Praedium.Engine
     {
         private List<GameObject> entities;
 
-        private TimeSpan accumulatedTime;
+        public RenderWindow Window
+        {
+            get;
+            private set;
+        }
+
+        private Stopwatch watch;
         private TimeSpan lastTime;
-        private Stopwatch stopWatch;
-        private ITerminal terminal;
+
+        public double DeltaTime
+        {
+            get;
+            private set;
+        }
 
         public UserInterface UI
         {
@@ -26,36 +39,11 @@ namespace Praedium.Engine
             private set;
         }
 
-        public readonly TimeSpan TargetElapsedTime = TimeSpan.FromTicks(TimeSpan.TicksPerSecond / 60);
-        public readonly TimeSpan MaxElapsedTime = TimeSpan.FromTicks(TimeSpan.TicksPerSecond / 10);
-
-        public event EventHandler<KeyInfoEventArgs> KeyUp;
-        public event EventHandler<KeyInfoEventArgs> KeyDown;
-
-        public event EventHandler<MouseInfoEventArgs> MouseUp;
-        public event EventHandler<MouseInfoEventArgs> MouseDown;
-        public event EventHandler<MouseInfoEventArgs> MouseMove;
-
         // TODO: Might need to replace with better random number generator
         public Random RNG
         {
             get;
             private set;
-        }
-
-        public ITerminal Terminal
-        {
-            get
-            {
-                return terminal;
-            }
-            set
-            {
-                // If previous terminal instance existed, resize the viewport to scale nicely within the window
-                if(terminal != null)
-                    ViewPort = new Rect(ViewPortOffset + (terminal.Size / 2 - value.Size / 2), value.Size);
-                terminal = value;
-            }
         }
 
         public Vector2D ViewPortOffset
@@ -78,13 +66,84 @@ namespace Praedium.Engine
             private set;
         }
 
-        public Game(ITerminal terminal)
+        public GlyphSheet GlyphSheet
         {
-            stopWatch = Stopwatch.StartNew();
-            Terminal = terminal;
+            get;
+            set;
+        }
+
+        public Game(GlyphSheet defaultSheet, RenderWindow window)
+        {
             RNG = new Random();
             UI = new UserInterface();
             entities = new List<GameObject>();
+            watch = Stopwatch.StartNew();
+
+            Window = window;
+            GlyphSheet = defaultSheet;
+
+            window.KeyPressed += window_KeyPressed;
+            window.KeyReleased += window_KeyReleased;
+
+            window.MouseButtonPressed += window_MouseButtonPressed;
+            window.MouseButtonReleased += window_MouseButtonReleased;
+
+            window.MouseMoved += window_MouseMoved;
+            window.MouseEntered += window_MouseEntered;
+            window.MouseLeft += window_MouseLeft;
+            window.MouseWheelMoved += window_MouseWheelMoved;
+            window.Closed += window_Closed;
+            window.Resized += window_Resized;
+        }
+
+        void window_Resized(object sender, SizeEventArgs e)
+        {
+            
+        }
+
+        void window_Closed(object sender, EventArgs e)
+        {
+            Window.Close();
+        }
+
+        void window_MouseLeft(object sender, EventArgs e)
+        {
+
+        }
+
+        void window_MouseEntered(object sender, EventArgs e)
+        {
+
+        }
+
+        void window_MouseWheelMoved(object sender, MouseWheelEventArgs e)
+        {
+
+        }
+
+        void window_MouseMoved(object sender, MouseMoveEventArgs e)
+        {
+            UI.ApplyMouseMove(e);
+        }
+
+        void window_MouseButtonReleased(object sender, MouseButtonEventArgs e)
+        {
+            UI.ApplyMouseUp(e);
+        }
+
+        void window_MouseButtonPressed(object sender, MouseButtonEventArgs e)
+        {
+            UI.ApplyMouseDown(e);
+        }
+
+        void window_KeyReleased(object sender, KeyEventArgs e)
+        {
+            UI.ApplyKeyUp(e);
+        }
+
+        void window_KeyPressed(object sender, KeyEventArgs e)
+        {
+            UI.ApplyKeyDown(e);
         }
 
         public void LoadLevel(Level targetLevel)
@@ -102,12 +161,12 @@ namespace Praedium.Engine
 
         public void CenterViewTo(Vector2D position)
         {
-            ViewPort = new Rect(new Vector2D(position.X - Terminal.Size.X / 2, position.Y - Terminal.Size.Y / 2), Terminal.Size);
+            ViewPort = new Rect(new Vector2D(position.X - (int)Window.Size.X / GlyphSheet.Width / 2, position.Y - (int)Window.Size.Y / GlyphSheet.Height / 2), new Vector2D((int)Window.Size.X / GlyphSheet.Width, (int)Window.Size.Y / GlyphSheet.Height));
         }
 
         public void MoveViewBy(Vector2D distance)
         {
-            ViewPort = new Rect(ViewPort.Position + distance, Terminal.Size);
+            ViewPort = new Rect(ViewPort.Position + distance, new Vector2D((int)Window.Size.X / GlyphSheet.Width, (int)Window.Size.Y / GlyphSheet.Height));
         }
 
         public Vector2D ToViewportPosition(Vector2D worldPosition)
@@ -118,6 +177,11 @@ namespace Praedium.Engine
         public Vector2D ToWorldPosition(Vector2D viewportPosition)
         {
             return viewportPosition + ViewPortOffset;
+        }
+
+        public Vector2D WindowPositionToViewportPosition(Vector2D windowPosition)
+        {
+            return new Vector2D(windowPosition.X / GlyphSheet.Width, windowPosition.Y / GlyphSheet.Height);
         }
 
         public bool TileCollideable(Vector2D position)
@@ -178,74 +242,24 @@ namespace Praedium.Engine
             }
         }
 
-        public double DeltaTime
+        public void Run()
         {
-            get
+            while (Window.IsOpen())
             {
-                return TargetElapsedTime.TotalSeconds;
-            }
-        }
+                TimeSpan currentTime = watch.Elapsed;
+                TimeSpan elapsedTime = currentTime - lastTime;
 
-        public void Tick()
-        {
-            TimeSpan currentTime = stopWatch.Elapsed;
-            TimeSpan elapsedTime = currentTime - lastTime;
-            lastTime = currentTime;
+                lastTime = currentTime;
 
-            bool updated = false;
+                DeltaTime = elapsedTime.TotalSeconds;
 
-            if (elapsedTime > MaxElapsedTime)
-            {
-                elapsedTime = MaxElapsedTime;
-            }
-
-            accumulatedTime += elapsedTime;
-
-            while (accumulatedTime >= TargetElapsedTime)
-            {
+                Window.Clear(Color.Black);
+                Window.DispatchEvents();
+                 
                 Update();
-
-                accumulatedTime -= TargetElapsedTime;
-                updated = true;
-            }
-
-            if(updated)
                 Render();
-        }
 
-        public void HandleKeyboard(KeyInfo info)
-        {
-            UI.ApplyKeyInfo(info);
-
-            if (info.Down)
-            {
-                OnKeyDown(info);
-            }
-            else
-            {
-                OnKeyUp(info);
-            }
-        }
-
-        public void HandleMouse(MouseInfo info)
-        {
-            if(info.Type == MouseEventType.Move)
-            {
-                UI.ApplyMousePosition(info.Position);
-                OnMouseMove(info);
-            }
-            else
-            {
-                UI.ApplyMouseInfo(info);
-
-                if (info.Down)
-                {
-                    OnMouseDown(info);
-                }
-                else
-                {
-                    OnMouseUp(info);
-                }
+                Window.Display();
             }
         }
 
@@ -256,44 +270,18 @@ namespace Praedium.Engine
             gameObject.Start();
         }
 
-        private void OnKeyDown(KeyInfo info)
+        public GameObject Instantiate<T>()
+            where T : GameObject
         {
-            if (KeyDown != null)
-            {
-                KeyDown(this, new KeyInfoEventArgs(info));
-            }
+            var obj = Activator.CreateInstance(typeof(T)) as GameObject;
+            AddGameObject(obj);
+
+            return obj;
         }
 
-        private void OnKeyUp(KeyInfo info)
+        public void Destroy(GameObject obj)
         {
-            if (KeyUp != null)
-            {
-                KeyUp(this, new KeyInfoEventArgs(info));
-            }
-        }
-
-        private void OnMouseDown(MouseInfo info)
-        {
-            if(MouseDown != null)
-            {
-                MouseDown(this, new MouseInfoEventArgs(info));
-            }
-        }
-
-        private void OnMouseUp(MouseInfo info)
-        {
-            if (MouseUp != null)
-            {
-                MouseUp(this, new MouseInfoEventArgs(info));
-            }
-        }
-
-        private void OnMouseMove(MouseInfo info)
-        {
-            if (MouseUp != null)
-            {
-                MouseMove(this, new MouseInfoEventArgs(info));
-            }
+            entities.Remove(obj);
         }
 
         private void Update()
@@ -306,13 +294,11 @@ namespace Praedium.Engine
 
         private void Render()
         {
-            Terminal.Clear();
-
-            Level.Render(Terminal);
+            Level.Render();
 
             foreach(var gameObject in entities)
             {
-                gameObject.Render(Terminal);
+                gameObject.Render();
             }
         }
     }

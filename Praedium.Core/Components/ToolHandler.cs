@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Praedium.Engine.UI;
 using Bramble.Core;
 using Praedium.Core.GameObjects;
+using SFML.Window;
 
 namespace Praedium.Core.Components
 {
@@ -23,12 +24,12 @@ namespace Praedium.Core.Components
 
         protected override void OnStart()
         {
-            Game.KeyDown += Game_KeyDown;
+            Game.Window.KeyPressed += Window_KeyPressed;
         }
 
-        void Game_KeyDown(object sender, KeyInfoEventArgs e)
+        void Window_KeyPressed(object sender, KeyEventArgs e)
         {
-            if(e.KeyInfo.Key == Key.E)
+            if(e.Code == Keyboard.Key.E)
             {
                 CurrentTool = (Tool)((((int)CurrentTool) + 1) % 3);
             }
@@ -38,19 +39,19 @@ namespace Praedium.Core.Components
         {
             Vector2D offset = Vector2D.Zero;
 
-            if(Game.UI.IsKeyDown(Key.Up))
+            if(Game.UI.IsKeyDown(Keyboard.Key.Up))
             {
                 offset = new Vector2D(0, -1);
             }
-            else if(Game.UI.IsKeyDown(Key.Right))
+            else if (Game.UI.IsKeyDown(Keyboard.Key.Right))
             {
                 offset = new Vector2D(1, 0);
             }
-            else if(Game.UI.IsKeyDown(Key.Down))
+            else if (Game.UI.IsKeyDown(Keyboard.Key.Down))
             {
                 offset = new Vector2D(0, 1);
             }
-            else if(Game.UI.IsKeyDown(Key.Left))
+            else if (Game.UI.IsKeyDown(Keyboard.Key.Left))
             {
                 offset = new Vector2D(-1, 0);
             }

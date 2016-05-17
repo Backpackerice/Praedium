@@ -15,9 +15,9 @@ namespace Praedium.Core.GameObjects
         private CameraMovementHandler handler;
         protected override void OnStart()
         {
-            handler = (CameraMovementHandler)GetComponentOfType(typeof(CameraMovementHandler));
+            handler = GetComponent<CameraMovementHandler>() as CameraMovementHandler;
 
-            handler.LAG = 0.05f;
+            handler.LAG = 0.001f;
         }
     }
 }

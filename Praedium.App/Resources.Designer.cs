@@ -63,69 +63,9 @@ namespace Praedium.App {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap cp437_10x10 {
-            get {
-                object obj = ResourceManager.GetObject("cp437_10x10", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap cp437_12x12 {
-            get {
-                object obj = ResourceManager.GetObject("cp437_12x12", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap cp437_14x14 {
-            get {
-                object obj = ResourceManager.GetObject("cp437_14x14", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
         internal static System.Drawing.Bitmap cp437_16x16 {
             get {
                 object obj = ResourceManager.GetObject("cp437_16x16", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap cp437_18x18 {
-            get {
-                object obj = ResourceManager.GetObject("cp437_18x18", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap cp437_20x20 {
-            get {
-                object obj = ResourceManager.GetObject("cp437_20x20", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap cp437_8x8 {
-            get {
-                object obj = ResourceManager.GetObject("cp437_8x8", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

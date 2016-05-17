@@ -62,7 +62,7 @@ namespace Praedium.Core.GameObjects
         {
             Name = "FieldTile";
 
-            renderer = (CellRenderer)GetComponentOfType(typeof(CellRenderer));
+            renderer = GetComponent<CellRenderer>() as CellRenderer;
 
             renderer.Character = new Character((int)Glyph.Space, Colors.Soil, Colors.Soil);
 

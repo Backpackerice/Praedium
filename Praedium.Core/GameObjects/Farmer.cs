@@ -14,7 +14,7 @@ namespace Praedium.Core.GameObjects
     [RequireComponent(typeof(PlayerMovementHandler))]
     [RequireComponent(typeof(CellRenderer))]
     [RequireComponent(typeof(ToolHandler))]
-    public class Player : GameObject
+    public class Farmer : GameObject
     {
         private CellRenderer renderer;
         private bool selected;
@@ -51,11 +51,11 @@ namespace Praedium.Core.GameObjects
 
         protected override void OnStart()
         {
-            Name = "Player";
+            Name = "Farmer";
 
             MovementPath = new Stack<Vector2D>();
 
-            renderer = (CellRenderer)GetComponentOfType(typeof(CellRenderer));
+            renderer = GetComponent<CellRenderer>() as CellRenderer;
 
             renderer.Character = new Character((int)Glyph.CharacterInversed, TermColor.White, TermColor.Black);
 

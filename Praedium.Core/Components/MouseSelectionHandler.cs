@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Praedium.Engine.UI;
 using Bramble.Core;
+using SFML.Window;
 
 namespace Praedium.Core.Components
 {
@@ -24,33 +25,34 @@ namespace Praedium.Core.Components
         {
             Controller = (MouseController)GameObject;
 
-            Game.MouseDown += Game_MouseDown;
-            Game.MouseUp += Game_MouseUp;
-            Game.MouseMove += Game_MouseMove;
+            Game.Window.MouseButtonPressed += Window_MouseButtonPressed;
+            Game.Window.MouseButtonReleased += Window_MouseButtonReleased;
+            Game.Window.MouseMoved += Window_MouseMoved;
         }
 
-        void Game_MouseMove(object sender, MouseInfoEventArgs e)
+        void Window_MouseMoved(object sender, MouseMoveEventArgs e)
         {
-            if(Controller.ProcessingSelection && lastPosition != e.MouseInfo.Position)
+            var newPos = Game.WindowPositionToViewportPosition(new Vector2D(e.X, e.Y));
+            if(Controller.ProcessingSelection && lastPosition != newPos)
             {
-                lastPosition = e.MouseInfo.Position;
+                lastPosition = newPos;
                 Controller.ChangeSelection(lastPosition);
             }
         }
 
-        void Game_MouseUp(object sender, MouseInfoEventArgs e)
+        void Window_MouseButtonReleased(object sender, MouseButtonEventArgs e)
         {
-            if (e.MouseInfo.Button == MouseButton.Left && Controller.ProcessingSelection)
+            if (e.Button == Mouse.Button.Left && Controller.ProcessingSelection)
             {
-                Controller.EndSelection(e.MouseInfo.Position);
+                Controller.EndSelection(Game.WindowPositionToViewportPosition(new Vector2D(e.X, e.Y)));
             }
         }
 
-        void Game_MouseDown(object sender, MouseInfoEventArgs e)
+        void Window_MouseButtonPressed(object sender, MouseButtonEventArgs e)
         {
-            if (e.MouseInfo.Button == MouseButton.Left && !Controller.ProcessingSelection)
+            if (e.Button == Mouse.Button.Left && !Controller.ProcessingSelection)
             {
-                Controller.StartSelection(e.MouseInfo.Position);
+                Controller.StartSelection(Game.WindowPositionToViewportPosition(new Vector2D(e.X, e.Y)));
             }
         }
 

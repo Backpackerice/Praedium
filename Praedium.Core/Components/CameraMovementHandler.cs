@@ -1,6 +1,7 @@
 ﻿using Bramble.Core;
 using Praedium.Engine.Components;
 using Praedium.Engine.UI;
+using SFML.Window;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,13 +28,13 @@ namespace Praedium.Core.Components
             {
                 elaspedTime = 0;
                 Vector2D movement = Vector2D.Zero;
-                if (Game.UI.IsKeyDown(Key.W))
+                if (Game.UI.IsKeyDown(Keyboard.Key.W))
                     movement += new Vector2D(0, -1);
-                if (Game.UI.IsKeyDown(Key.A))
+                if (Game.UI.IsKeyDown(Keyboard.Key.A))
                     movement += new Vector2D(-1, 0);
-                if (Game.UI.IsKeyDown(Key.S))
+                if (Game.UI.IsKeyDown(Keyboard.Key.S))
                     movement += new Vector2D(0, 1);
-                if (Game.UI.IsKeyDown(Key.D))
+                if (Game.UI.IsKeyDown(Keyboard.Key.D))
                     movement += new Vector2D(1, 0);
 
                 if (movement != Vector2D.Zero)

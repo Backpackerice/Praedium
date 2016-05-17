@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Bramble.Core;
 using Malison.Core;
 using Praedium.Engine.Components;
+using SFML.Graphics;
 
 namespace Praedium.Engine
 {
@@ -41,6 +42,8 @@ namespace Praedium.Engine
             }
         }
 
+        protected virtual void OnDestroy() { }
+
         public string Name
         {
             get;
@@ -51,7 +54,7 @@ namespace Praedium.Engine
         /// When the game objects get initialized, they can begin their custom setup by taking advantage of overriding this method
         /// </summary>
         protected abstract void OnStart();
-
+        
         public void Start()
         {
             OnStart();
@@ -70,14 +73,11 @@ namespace Praedium.Engine
             }
         }
 
-        public void Render(ITerminal terminal)
+        public void Render()
         {
-            foreach (Component component in Components)
+            foreach (Renderer component in Components.OfType<Renderer>().Where(x => x.Enabled))
             {
-                Renderer renderer = component as Renderer;
-
-                if (renderer != null)
-                    renderer.Render(terminal);
+                component.Render();
             }
         }
 
@@ -106,9 +106,25 @@ namespace Praedium.Engine
             return Components.Find(x => x.GetType().IsSubclassOf(type) || x.GetType() == type);
         }
 
-        public IList<Component> GetComponentsOfType(Type type)
+        public Component GetComponent<T>()
         {
-            return Components.FindAll(x => x.GetType().IsSubclassOf(type) || x.GetType() == type).ToList();
+            return GetComponentOfType(typeof(T));
+        }
+
+        public IEnumerable<Component> GetComponentsOfType(Type type)
+        {
+            return Components.FindAll(x => x.GetType().IsSubclassOf(type) || x.GetType() == type);
+        }
+
+        public IEnumerable<Component> GetComponents<T>()
+        {
+            return GetComponentsOfType(typeof(T));
+        }
+
+        public void Destroy()
+        {
+            OnDestroy();
+            Game.Destroy(this);
         }
     }
 }

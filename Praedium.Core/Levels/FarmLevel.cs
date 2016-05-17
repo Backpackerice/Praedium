@@ -63,7 +63,7 @@ namespace Praedium.Core.Levels
 
             var spawn = map.ObjectGroups[0].Objects["Spawn"];
 
-            Player player = new Player();
+            Farmer player = new Farmer();
             player.Position = new Vector2D((int)(spawn.X / map.TileWidth), (int)(spawn.Y / map.TileHeight));
 
             AddGameObject(player);

@@ -1,13 +1,14 @@
 using Bramble.Core;
 using System;
 using System.Collections.Generic;
+using SFML.Window;
 
 namespace Praedium.Engine.UI
 {
     public class UserInterface
     {
-        private Dictionary<Key, bool> pressedKeys;
-        private Dictionary<MouseButton, bool> pressedMouseButtons;
+        private Dictionary<Keyboard.Key, bool> pressedKeys;
+        private Dictionary<Mouse.Button, bool> pressedMouseButtons;
 
         public Vector2D MousePosition
         {
@@ -17,46 +18,55 @@ namespace Praedium.Engine.UI
 
         public UserInterface()
         {
-            pressedKeys = new Dictionary<Key, bool>();
-            pressedMouseButtons = new Dictionary<MouseButton, bool>();
+            pressedKeys = new Dictionary<Keyboard.Key, bool>();
+            pressedMouseButtons = new Dictionary<Mouse.Button, bool>();
         }
 
-        public void ApplyKeyInfo(KeyInfo info)
+        public void ApplyKeyUp(KeyEventArgs args)
         {
-            pressedKeys[info.Key] = info.Down;
+            pressedKeys[args.Code] = false;
         }
 
-        public void ApplyMouseInfo(MouseInfo info)
+        public void ApplyKeyDown(KeyEventArgs args)
         {
-            pressedMouseButtons[info.Button] = info.Down;
-            MousePosition = info.Position;
+            pressedKeys[args.Code] = true;
         }
 
-        public void ApplyMousePosition(Vector2D position)
+        public void ApplyMouseDown(MouseButtonEventArgs args)
         {
-            MousePosition = position;
+            pressedMouseButtons[args.Button] = true;
         }
 
-        public bool IsMouseButtonDown(MouseButton button)
+        public void ApplyMouseUp(MouseButtonEventArgs args)
+        {
+            pressedMouseButtons[args.Button] = false;
+        }
+
+        public void ApplyMouseMove(MouseMoveEventArgs args)
+        {
+            MousePosition = new Vector2D(args.X, args.Y);
+        }
+
+        public bool IsMouseButtonDown(Mouse.Button button)
         {
             bool returnValue;
             pressedMouseButtons.TryGetValue(button, out returnValue);
             return returnValue;
         }
 
-        public bool IsMouseButtonUp(MouseButton button)
+        public bool IsMouseButtonUp(Mouse.Button button)
         {
             return !IsMouseButtonDown(button);
         }
 
-        public bool IsKeyDown(Key key)
+        public bool IsKeyDown(Keyboard.Key key)
         {
             bool returnValue;
             pressedKeys.TryGetValue(key, out returnValue);
             return returnValue;
         }
 
-        public bool IsKeyUp(Key key)
+        public bool IsKeyUp(Keyboard.Key key)
         {
             return !IsKeyDown(key);
         }
